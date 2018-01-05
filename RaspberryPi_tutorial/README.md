@@ -15,8 +15,8 @@
 
 1. Připojení k internetu. 
 
-  - Kabelové připojení: V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
-  - Bezdrátové připojení: Pokud budeme využívat WiFi připojení, nalezneme v prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
+    - Kabelové připojení: V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
+    - Bezdrátové připojení: Pokud budeme využívat WiFi připojení, nalezneme v prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
 
 
 ### Zdroje
