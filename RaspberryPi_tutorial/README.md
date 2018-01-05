@@ -13,11 +13,11 @@
 
 ### Prvotní nastavení systému
 
-1. Připojení k internetu. 
+1. **Připojení k internetu.** 
 
-    - Kabelové připojení: V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
-    - Bezdrátové připojení: Pokud budeme využívat WiFi připojení, nalezneme v prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
-
+    - **Kabelové připojení (ETH0):** V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
+    - **Bezdrátové připojení (WLAN0):** Pokud budeme využívat WiFi připojení, nalezneme v prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
+    - **Získáni IP adresy:** Spusťte příkazový řádek a zadejte příkaz `ifconfig`. IP adresu najdeme pod označením *inet*. V případě kabelového připojení v *ETH0*, v případě bezdrátového připojení *WLAN0*.
 
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
