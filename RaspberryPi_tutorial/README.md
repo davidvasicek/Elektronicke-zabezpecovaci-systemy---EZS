@@ -76,19 +76,39 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 	``` 
 	
 	- Vytvoření nové tabulky ArduinoDevices - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
+	
 		- id: identifikátor záznamů v tabulce
-		- DeviceIP: IP adresu daného zařízení, aby server věděl kde zasílat jednotlivé pakety
+		- DeviceIP: IP adresu daného zařízení, abychom jej v síti mohli najít
 		- DeviceID: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
 		- Description: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
-	```
-	CREATE TABLE IF NOT EXISTS ArduinoDevices(
- 	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	 DeviceIP VARCHAR(100) NOT NULL,
- 	DeviceID VARCHAR(100) NOT NULL,
- 	Description VARCHAR(500) NOT NULL
-	);
-	```
 		
+		```
+		CREATE TABLE IF NOT EXISTS ArduinoDevices(
+ 		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+		DeviceIP VARCHAR(100) NOT NULL,
+ 		DeviceID VARCHAR(100) NOT NULL,
+ 		Description VARCHAR(500) NOT NULL
+		);
+		```
+	- Vytvoření nové tabulky BME280sensors - Tato tabulka bude slouži pro ukládání záznamů z teplotního a tlakového senzoru BME280, které bude na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
+	
+		- id: identifikátor záznamů v tabulce
+		- DeviceID: Identifikační číslo zařízení, které data zaslalo
+		- Temperature: data o teplotě [°C]
+		- Humidity: data o vlhkosti [%]
+		- Pressure: data o barometrickém tlaku [hPa]
+		- TimeStamp: čas, ve který server data obdržel
+	
+		```
+		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+ 		ArduinoID VARCHAR(100) NOT NULL,
+ 		Temperature FLOAT(3) NOT NULL,
+ 		Humidity FLOAT(3) NOT NULL,
+ 		Pressure FLOAT(3) NOT NULL,
+ 		TimeStamp NUMERIC(20) NOT NULL
+		);
+		```
+	
 
 	
 ### Zdroje
