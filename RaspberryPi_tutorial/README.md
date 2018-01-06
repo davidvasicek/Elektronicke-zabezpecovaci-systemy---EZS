@@ -48,6 +48,7 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 		``` 
 	
 	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
+	
     		``` 
 		apt-get install software-properties-common
 		add-apt-repository ppa:ondrej/php
