@@ -23,19 +23,34 @@
     - **Získáni IP adresy:** Spusťte příkazový řádek a zadejte příkaz `ifconfig`. IP adresu najdeme pod označením *inet*. V případě kabelového připojení v *ETH0*, v případě bezdrátového připojení *WLAN0*.
 2. **Povolení protokolu SSH (Secure Shell).** v prostředí OS Raspbianu klikneme v levém horním rohu na ikonu maliny -> Preferences -> Raspberry Pi Configuration -> Interfaces -> SSH: Enable -> OK [Návod zde](https://www.raspberrypi.org/documentation/remote-access/ssh/).
 3. **Update a Upgrade systému.** Spusťte příkazový řádek a zadejte příkaz `sudo apt-get -y upgrade`, po dokončení zadejte příkaz `sudo apt-get -y update`
-
 ### Instalace repozitářů
 Přejděte do příkazového řádku a přihlaste se jako uživatel správce root příkazem `sudo -i`. Pokud nebudete jako správce přihlášeni, budou vám chybět oprávnění k následujícím úkonům.
 
-1. **instalace FTP**. FTP (File Transfer Protocol) slouží pro přenos souborů mezi Raspberry Pi a jiným počítačem.
+1. **Instalace FTP**. FTP (File Transfer Protocol) slouží pro přenos souborů mezi Raspberry Pi a jiným počítačem.
 
     ```
     apt-get install -y vsftpd
     nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
     /etc/init.d/vsftpd restart
     ```
+2. **Instalace LAMP.** LAMP je zkratka, která v informatice označuje sadu svobodného softwaru používaného jako platforma pro implementaci dynamických webových stránek. [3] Díky této platformě vytvoříme z našeho zařízení Raspberry Pi plnohodnotný webový server. 
+
+	Zkratka LAMP označuje začáteční písmena těchto technologií:
+
+	- **L**inux – operační systém
+	- **A**pache – webový server
+
+	```
+    apt-get install -y vsftpd
+    nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
+    /etc/init.d/vsftpd restart
+    ```
+    
+	- **M**ariaDB nebo **M**ySQL – databázový systém
+	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
     
     
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
 - [2] https://cs.wikipedia.org/wiki/Raspbian
+- [3] https://cs.wikipedia.org/wiki/LAMP
