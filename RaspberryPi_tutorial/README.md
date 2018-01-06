@@ -75,12 +75,13 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 	USE IoT;  // Přepneme se do naši nově vytvořené databáze IoT
 	``` 
 	
-	- Vytvoření nové tabulky ArduinoDevices - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
+	- **Vytvoření nové tabulky ArduinoDevices** - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
 	
 		- id: identifikátor záznamů v tabulce
 		- DeviceIP: IP adresu daného zařízení, abychom jej v síti mohli najít
 		- DeviceID: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
 		- Description: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
+		
 		
 		```
 		CREATE TABLE IF NOT EXISTS ArduinoDevices(
@@ -90,7 +91,7 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
  		Description VARCHAR(500) NOT NULL
 		);
 		```
-	- Vytvoření nové tabulky BME280sensors - Tato tabulka bude slouži pro ukládání záznamů z teplotního a tlakového senzoru BME280, které bude na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
+	- **Vytvoření nové tabulky BME280sensors** - Tato tabulka bude slouži pro ukládání záznamů z teplotních a tlakových senzoru BME280, které budou na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
 	
 		- id: identifikátor záznamů v tabulce
 		- DeviceID: Identifikační číslo zařízení, které data zaslalo
@@ -98,6 +99,7 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		- Humidity: data o vlhkosti [%]
 		- Pressure: data o barometrickém tlaku [hPa]
 		- TimeStamp: čas, ve který server data obdržel
+	
 	
 		```
 		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
