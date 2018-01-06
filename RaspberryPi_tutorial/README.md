@@ -29,12 +29,18 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 
 1. **instalace FTP**. FTP (File Transfer Protocol) slouží pro přenos souborů mezi Raspberry Pi a jiným počítačem.
 
-```
-apt-get install -y vsftpd
-nano /etc/vsftpd.conf 
-změťe #write_enable=YES na write_enable=YES
-/etc/init.d/vsftpd restart
-```
+    ```
+    apt-get install -y vsftpd
+    ```
+    změťe #write_enable=YES na write_enable=YES
+    ```
+    nano /etc/vsftpd.conf 
+    ```
+    ```
+    /etc/init.d/vsftpd restart
+    ```
+    
+    
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
 - [2] https://cs.wikipedia.org/wiki/Raspbian
