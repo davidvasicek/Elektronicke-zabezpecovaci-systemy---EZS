@@ -31,12 +31,7 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 
     ```
     apt-get install -y vsftpd
-    ```
-    změťe #write_enable=YES na write_enable=YES
-    ```
-    nano /etc/vsftpd.conf 
-    ```
-    ```
+    nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
     /etc/init.d/vsftpd restart
     ```
     
