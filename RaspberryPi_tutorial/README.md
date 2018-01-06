@@ -54,6 +54,7 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 		apt-get update
 		apt search php7
 		apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi  php7.0 libapache2-mod-php7.0
+		service apache2 restart
 		```
 	
 		
