@@ -40,14 +40,12 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 	- **L**inux – operační systém
 	- **A**pache – webový server
 
-	```
-    apt-get install -y vsftpd
-    nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
-    /etc/init.d/vsftpd restart
-    ```
+		```
+		apt-get install -y apache2
+		 ```
     
-	- **M**ariaDB nebo **M**ySQL – databázový systém
-	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
+**M**ariaDB nebo **M**ySQL – databázový systém
+**P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
     
     
 ### Zdroje
