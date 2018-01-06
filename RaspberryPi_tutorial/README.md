@@ -57,9 +57,15 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 		```
 	
 		
- 3. **Instalace Node JS.** 
- 
+ 3. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [4]. Npm je správce balíčků pro programovací jazyk JavaScript. [5]
+	``` 
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	apt-get install nodejs
+	``` 
+	
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
 - [2] https://cs.wikipedia.org/wiki/Raspbian
 - [3] https://cs.wikipedia.org/wiki/LAMP
+- [4] https://cs.wikipedia.org/wiki/Node.js
+- [5] https://en.wikipedia.org/wiki/Npm_(software)
