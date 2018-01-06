@@ -33,20 +33,28 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
     nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
     /etc/init.d/vsftpd restart
     ```
-2. **Instalace LAMP.** LAMP je zkratka, která v informatice označuje sadu svobodného softwaru používaného jako platforma pro implementaci dynamických webových stránek. [3] Díky této platformě vytvoříme z našeho zařízení Raspberry Pi plnohodnotný webový server. 
-
-	Zkratka LAMP označuje začáteční písmena těchto technologií:
+2. **Instalace LAMP.** LAMP je zkratka, která v informatice označuje sadu svobodného softwaru používaného jako platforma pro implementaci dynamických webových stránek. [3] Díky této platformě vytvoříme z našeho zařízení Raspberry Pi plnohodnotný webový server. Zkratka LAMP označuje začáteční písmena těchto technologií:
 
 	- **L**inux – operační systém
 	- **A**pache – webový server
 
 		```
 		apt-get install -y apache2
-		 ```
-    
-**M**ariaDB nebo **M**ySQL – databázový systém
-**P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
-    
+		``` 
+		 
+	- **M**ariaDB nebo **M**ySQL – databázový systém
+		```
+		apt install -y mariadb-server
+		``` 
+	
+	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
+    		```
+		apt-get install software-properties-common
+		add-apt-repository ppa:ondrej/php
+		apt-get update
+		sudo apt search php7
+		sudo apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi  php7.0 libapache2-mod-php7.0
+		``` 
     
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
