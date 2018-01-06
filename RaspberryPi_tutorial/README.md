@@ -81,7 +81,6 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		- DeviceIP: IP adresu daného zařízení, abychom jej v síti mohli najít
 		- DeviceID: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
 		- Description: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
-		-
 			
 		```
 		CREATE TABLE IF NOT EXISTS ArduinoDevices(
@@ -100,7 +99,6 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		- Humidity: data o vlhkosti [%]
 		- Pressure: data o barometrickém tlaku [hPa]
 		- TimeStamp: čas, ve který server data obdržel
-	
 	
 		```
 		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
