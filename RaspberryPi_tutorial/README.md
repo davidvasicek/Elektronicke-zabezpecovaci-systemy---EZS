@@ -49,7 +49,11 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 	
 	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
 		```
-		kokot
+		apt-get install software-properties-common
+		add-apt-repository ppa:ondrej/php
+		apt-get update
+		apt search php7
+		apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi  php7.0 libapache2-mod-php7.0
 		```
 	
 		
