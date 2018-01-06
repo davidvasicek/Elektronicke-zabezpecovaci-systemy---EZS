@@ -66,6 +66,15 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 	npm -v
 	``` 
 	
+### Konfigurace projektu
+V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu a následující části se proto budeme věnovat postupy konfigurace našeho serveru.
+
+1. **Vytvoření nové databáze a potřebných tabulek.** V příkazovém řádku zadejte příkaz `mysql -u root -p` a zadejte heslo. Pozn.: Heslo jsme volili při instalaci databázového serveru. Při zadávání příkazů nezapomeňte na konci každého příkazu zadat znak středníku.
+	``` 
+	CREATE DATABASE IoT;  // Vytvoří novou databázi s názvem IoT
+	USE IoT;  // Přepneme se do naši nově vytvořené databáze IoT
+	``` 
+	
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
 - [2] https://cs.wikipedia.org/wiki/Raspbian
