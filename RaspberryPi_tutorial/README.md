@@ -75,6 +75,15 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 	USE IoT;  // Přepneme se do naši nově vytvořené databáze IoT
 	``` 
 	
+	- Vytvoření nové tabulky ArduinoDevices - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
+		- id: identifikátor záznamů v tabulce
+	CREATE TABLE IF NOT EXISTS ArduinoDevices(
+ id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+ DeviceIP VARCHAR(100) NOT NULL,
+ DeviceID VARCHAR(100) NOT NULL,
+ Description VARCHAR(500) NOT NULL
+);
+	
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
 - [2] https://cs.wikipedia.org/wiki/Raspbian
