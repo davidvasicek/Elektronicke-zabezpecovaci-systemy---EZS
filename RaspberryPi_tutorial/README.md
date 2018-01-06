@@ -81,8 +81,8 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		- DeviceIP: IP adresu daného zařízení, abychom jej v síti mohli najít
 		- DeviceID: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
 		- Description: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
-		
-		
+		-
+			
 		```
 		CREATE TABLE IF NOT EXISTS ArduinoDevices(
  		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -91,6 +91,7 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
  		Description VARCHAR(500) NOT NULL
 		);
 		```
+		
 	- **Vytvoření nové tabulky BME280sensors** - Tato tabulka bude slouži pro ukládání záznamů z teplotních a tlakových senzoru BME280, které budou na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
 	
 		- id: identifikátor záznamů v tabulce
