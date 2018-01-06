@@ -61,6 +61,8 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 	``` 
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	apt-get install nodejs
+	node -v
+	npm -v
 	``` 
 	
 ### Zdroje
