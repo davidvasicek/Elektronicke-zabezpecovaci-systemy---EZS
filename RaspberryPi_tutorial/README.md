@@ -111,6 +111,13 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		```
 	
 
+
+CREATE TABLE IF NOT EXISTS AndroidDevices(
+ id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+ Token VARCHAR(200) NOT NULL,
+ Device_Name VARCHAR(100) NOT NULL,
+ Device_ID VARCHAR(100) NOT NULL
+);
 	
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Raspberry_Pi
