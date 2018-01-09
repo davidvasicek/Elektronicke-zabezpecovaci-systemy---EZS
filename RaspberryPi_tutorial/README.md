@@ -101,6 +101,7 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 		- TimeStamp: čas, ve který server data obdržel
 	
 		```
+		CREATE TABLE IF NOT EXISTS BME280sensors(
 		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
  		ArduinoID VARCHAR(100) NOT NULL,
  		Temperature FLOAT(3) NOT NULL,
