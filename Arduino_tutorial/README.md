@@ -6,7 +6,7 @@ Arduino [čti Arduíno] je v informatice název malého jednodeskového počíta
 Open-source software Arduino IDE umožňuje snadné psaní kódu a jeho nahrávání na desku. Spouští se na systémech Windows, Mac OS X a Linux a jeho prostředí je napsáno v jazyce Java a je také založeno na zpracování a jiném open-source softwaru.
 Tento software lze použít s libovolnou deskou Arduino.
 
-
+1. **Stažení operačního systému** Software Arduino IDE je dostupný na oficiálních stráchkách společnosti Arduino [Download zde](https://www.arduino.cc/en/main/software). Instalační soubor je možné stáhnout v sekci  *Download the Arduino IDE* kliknutím na *Windows Installer*.
 
 
 ### Zdroje
