@@ -7,10 +7,10 @@ Firebase je platforma pro vývoj mobilních a webových aplikací vyvinutá firm
 2. **Vytvoření nového projektu** na stránkách [https://console.firebase.google.com/](https://console.firebase.google.com/) vytvořte nový projekt kliknutím na tlačítko *Add project*. V dalším kroku vyplňte potřebné údaje a nový projekt vytvořte stisknutím *CREATE PROJEKT*.
 
 3. **Vytvoření nové aplikace pro platformu Android** 
-  - Krok 1: Chceme-li využívat služeb Firebase v aplikacích na platformě Android, je potřeba pro každou takovouto aplikaci založit novou aplikaci pro platformu Android v nově založeném projektu. Vytvoříme ji liknutím na * Add Firebase to your Android app*. 
-  - Krok 2: Následně je velmi důležité vyplnění kolonky Android *package name*. Název tohoto package najdeme v nově vytvořeném projektu Android Studia. Ve struktuře našeho projektu jej můžeme nalézt v .xml souboru s názvem AndroidManifest. V mém případě je zde uvedeno jako *package="com.example.liptel.raspberrypi"*. Jakmile máme package vyplněny, pokračujeme tlačítkem *REGISTER APP*.
+Krok 1: Chceme-li využívat služeb Firebase v aplikacích na platformě Android, je potřeba pro každou takovouto aplikaci založit novou aplikaci pro platformu Android v nově založeném projektu. Vytvoříme ji liknutím na * Add Firebase to your Android app*. 
+Krok 2: Následně je velmi důležité vyplnění kolonky Android *package name*. Název tohoto package najdeme v nově vytvořeném projektu Android Studia. Ve struktuře našeho projektu jej můžeme nalézt v .xml souboru s názvem AndroidManifest. V mém případě je zde uvedeno jako *package="com.example.liptel.raspberrypi"*. Jakmile máme package vyplněny, pokračujeme tlačítkem *REGISTER APP*.
 
-  - Krok 3: Download google-services.json. Když máme soubor stažený, musíme jej přesunout do našeho projektu v Android Studiu. Nejjednodušší cesta, jak .json soubor do našeho projektu zkopírovat, je pomocí windows průzkumníka. Nejběžnější cesta je následující: C:\Users\user\AndroidStudioProjects\[název Android projektu]\app. Do této složky nakopírujeme náš .json soubor.
+Krok 3: Download google-services.json. Když máme soubor stažený, musíme jej přesunout do našeho projektu v Android Studiu. Nejjednodušší cesta, jak .json soubor do našeho projektu zkopírovat, je pomocí windows průzkumníka. Nejběžnější cesta je následující: C:\Users\user\AndroidStudioProjects\[název Android projektu]\app. Do této složky nakopírujeme náš .json soubor.
 
 
 **Firebase Cloud Messaging**
