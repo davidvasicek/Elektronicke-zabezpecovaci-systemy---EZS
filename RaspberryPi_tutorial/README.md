@@ -30,41 +30,34 @@ Přejděte do příkazového řádku a přihlaste se jako uživatel správce roo
 
     ```
     apt-get install -y vsftpd
-    nano /etc/vsftpd.conf // změťe #write_enable=YES na write_enable=YES
+    nano /etc/vsftpd.conf 
+    	// změťe #write_enable=YES na write_enable=YES
     /etc/init.d/vsftpd restart
     ```
-2. **Instalace LAMP.** LAMP je zkratka, která v informatice označuje sadu svobodného softwaru používaného jako platforma pro implementaci dynamických webových stránek. [3] Díky této platformě vytvoříme z našeho zařízení Raspberry Pi plnohodnotný webový server. Zkratka LAMP označuje začáteční písmena těchto technologií:
+2. **Instalace MariDB.** MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou větví (tzv, „forkem“) MySQL. Hlavním důvodem k vytvoření této větve bylo udržení licence svobodného softwaru GNU GPL. [odkaz10]
 
-	- **L**inux – operační systém
-	- **A**pache – webový server
-
-		```
-		apt-get install -y apache2
-		``` 
-		 
-	- **M**ariaDB nebo **M**ySQL – databázový systém
-		```
-		apt install -y mariadb-server
-		``` 
+    ```
+	sudo apt install -y mariadb-server
+    ```
 	
-	- **P**HP, **P**erl, nebo **P**ython – skriptovací programovací jazyky
-		```
-		apt-get install software-properties-common
-		add-apt-repository ppa:ondrej/php
-		apt-get update
-		apt search php7
-		apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi  php7.0 libapache2-mod-php7.0
-		service apache2 restart
-		```
-	
-		
- 3. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [4]. Npm je správce balíčků pro programovací jazyk JavaScript. [5]
-	``` 
+3. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [4]. Npm je správce balíčků pro programovací jazyk JavaScript. [5]
+    
+    ``` 
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	apt-get install nodejs
 	node -v
 	npm -v
+    ``` 
+   
+   vytvoření ukázkového skriptu:
+    ```
+    mkdir /home/pi/nodejs
+    cd /home/pi/nodejs
+    nano test.js
+    	console.log("Hello world");
+    node test.js
 	``` 
+4. **Vytvoření bezdrátového přístupového bodu.** Raspberry Pi může být používán jako bezdrátový přístupový bod, který má samostatnou síť. To lze provést pomocí vestavěných bezdrátových prvků Raspberry Pi 3 nebo Raspberry Pi Zero W nebo pomocí vhodného bezdrátového USB klíče, který podporuje přístupové body. Bezdrátový přístupový bod vytvoříte dle náslodujícího tutoriálu [Tutorial zde](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md)
 	
 ### Konfigurace projektu
 V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu a následující části se proto budeme věnovat postupy konfigurace našeho serveru.
@@ -126,3 +119,5 @@ CREATE TABLE IF NOT EXISTS AndroidDevices(
 - [3] https://cs.wikipedia.org/wiki/LAMP
 - [4] https://cs.wikipedia.org/wiki/Node.js
 - [5] https://en.wikipedia.org/wiki/Npm_(software)
+
+odkaz10 - https://cs.wikipedia.org/wiki/MariaDB
