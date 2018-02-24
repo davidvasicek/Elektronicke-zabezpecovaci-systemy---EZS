@@ -25,19 +25,27 @@ Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena 
     - Krok 3: Download google-services.json. Když máme soubor stažený, musíme jej přesunout do našeho projektu v Android Studiu. Nejjednodušší cesta, jak .json soubor do našeho projektu zkopírovat, je pomocí windows průzkumníka. Nejběžnější cesta je následující: C:\Users\user\AndroidStudioProjects\[název Android projektu]\app. Do této složky nakopírujeme náš .json soubor.
 
 
-**Firebase Cloud Messaging**
 
-Firebase Cloud Messaging (FCM) je řešení pro zasílání zpráv mezi platformami, které vám umožní spolehlivě doručovat zprávy zdarma.
-Pomocí služby FCM můžete upozornit na aplikaci klienta, že jsou k synchronizaci k dispozici nová e-mailová nebo jiná data. Zprávy o oznámení můžete posílat, abyste mohli opětovně zapojit a uchovat uživatele. U aplikací, jako je například instant messaging, může zpráva přenést užitečné zatížení až 4 kB do aplikace klienta.
-
-Používáte službu Google Cloud Messaging již nyní? Další informace o možnostech.
+**Legacy server key** Project settings -> Cloud Messaging -> Legacy server key
+**serviceAccountKey.json** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> GENERATE NEW PRIVATE KEY (stžený soubor přejmenujte na serviceAccountKey.json)
+**databaseURL** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> databaseURL
 
 
+**Nastavení oprávnění databáze** Database -> Rules -> 
 
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
 
-
-Ukládejte a synchronizujte data s naší databází cloud NoSQL. Data jsou synchronizována ve všech klientech v reálném čase a zůstávají k dispozici, když aplikace zmizí.
-Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena jako JSON a synchronizována v reálném čase s každým připojeným klientem. Při vytváření aplikací s více platformami pomocí našich sady iOS, Android a JavaScript SDK sdílí všichni vaši klienti jednu instanci databáze Realtime a automaticky přijímá aktualizace s nejnovějšími daty.
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
 
 [Guide zde](https://firebase.google.com/docs/database/)
 
