@@ -31,21 +31,7 @@ Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena 
 **databaseURL** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> databaseURL
 
 
-**Nastavení oprávnění databáze** Database -> Rules -> 
-
-{
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
-}
-
-{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
+**Nastavení oprávnění databáze** Database -> Rules -> změna z { "rules": { ".read": "auth != null", ".write": "auth != null" } } na { "rules": { ".read": true, ".write": true } }
 
 [Guide zde](https://firebase.google.com/docs/database/)
 
