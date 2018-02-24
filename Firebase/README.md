@@ -27,9 +27,10 @@ Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena 
 
 
 **Legacy server key** Project settings -> Cloud Messaging -> Legacy server key
-**serviceAccountKey.json** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> GENERATE NEW PRIVATE KEY (stžený soubor přejmenujte na serviceAccountKey.json)
-**databaseURL** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> databaseURL
 
+**serviceAccountKey.json** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> GENERATE NEW PRIVATE KEY (stžený soubor přejmenujte na serviceAccountKey.json)
+
+**databaseURL** Project settings -> Service Accounts -> Firebase Admin SDK -> Node.js -> databaseURL
 
 **Nastavení oprávnění databáze** Database -> Rules -> změna z { "rules": { ".read": "auth != null", ".write": "auth != null" } } na { "rules": { ".read": true, ".write": true } }
 
