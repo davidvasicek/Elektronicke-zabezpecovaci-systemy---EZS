@@ -10,7 +10,7 @@ Tento software lze použít s libovolnou deskou Arduino.
 
 2. **Instalace softwaru Arduino IDE** Stažený instalační soubor Arduina IDE otevřeme, software nainstalujeme a následně spustíme
 
-3. **Instalace WiFi čipu ESP 8266** Samotný software Arduino IDE neobsahuje podporu desek s WiFi čipy ESP8266, proto je nutné tuto podporu doinstalovat. Využijeme návodu vytvořeného společností Arduino-shop [Návod zde](http://navody.arduino-shop.cz/navody-k-produktum/esp8266-vyvojova-deska-wemos-d1.html). *Pozn.: Vývojovou desku nevolte dle návodu WeMos D (retired), ale zvolte WeMos D1 R2 & mini*.
+3. **Instalace WiFi čipu ESP 8266** Samotný software Arduino IDE neobsahuje podporu desek s WiFi čipy ESP8266, proto je nutné tuto podporu doinstalovat. Využijeme návodu vytvořeného společností Arduino-shop [Návod zde](http://navody.arduino-shop.cz/navody-k-produktum/esp8266-vyvojova-deska-wemos-d1.html). *Pozn.: Vývojovou desku nevolte dle návodu WeMos D1 (retired), ale zvolte WeMos D1 R2 & mini*.
 
 4. **Připojení desky WeMos D1 mini** Desku WeMos D1 mini připojte kabelem Micro USB k PC, v sotwaru Arduino IDE Nástroje -> Port a zvolte port, ke kterému jste vaší desku připojili.
 
