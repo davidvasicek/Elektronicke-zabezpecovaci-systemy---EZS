@@ -65,26 +65,26 @@ V této fázi máme připravené Raspberry Pi pro samotnou konfiguraci projektu 
 1. **Vytvoření nové databáze a potřebných tabulek.** V příkazovém řádku zadejte příkaz `mysql -u root -p` a zadejte heslo. Pozn.: Heslo jsme volili při instalaci databázového serveru. Při zadávání příkazů nezapomeňte na konci každého příkazu zadat znak středníku.
 	``` 
 	CREATE DATABASE IoT;  // Vytvoří novou databázi s názvem IoT
-	USE IoT;  // Přepneme se do naši nově vytvořené databáze IoT
-	``` 
+	USE IoT;  // Přepneme se do nově vytvořené databáze IoT
+	```
 	
-	- **Vytvoření nové tabulky ArduinoDevices** - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
+2.  **Vytvoření nové tabulky ArduinoDevices** - Tato tabulka bude sloužit pro registraci jednotlivých zařízení Arduino, které se na serveru budou registrovat. Obsahuje celkem 4 atributy: 
 	
-		- id: identifikátor záznamů v tabulce
-		- DeviceIP: IP adresu daného zařízení, abychom jej v síti mohli najít
-		- DeviceID: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
-		- Description: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
-			
+		- **id**: identifikátor záznamů v tabulce
+		- **DeviceIP**: IP adresu daného zařízení, abychom jej v síti mohli najít
+		- **DeviceID**: jedinečné identifikační číslo daného zařízení (jedná se o MAC adresu zařízení)
+		- **Description**: popis zařízení, aby bylo jednodušší zařízení námi identifikovat
+         
 		```
 		CREATE TABLE IF NOT EXISTS ArduinoDevices(
- 		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+		id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		DeviceIP VARCHAR(100) NOT NULL,
- 		DeviceID VARCHAR(100) NOT NULL,
- 		Description VARCHAR(500) NOT NULL
+		DeviceID VARCHAR(100) NOT NULL,
+		Description VARCHAR(500) NOT NULL
 		);
 		```
-		
-	- **Vytvoření nové tabulky BME280sensors** - Tato tabulka bude slouži pro ukládání záznamů z teplotních a tlakových senzoru BME280, které budou na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
+		 
+3. **Vytvoření nové tabulky BME280sensors** - Tato tabulka bude slouži pro ukládání záznamů z teplotních a tlakových senzoru BME280, které budou na server odesílat výše registrované zařízení Arduino. Obsahuje celkem 6 atributů:
 	
 		- id: identifikátor záznamů v tabulce
 		- DeviceID: Identifikační číslo zařízení, které data zaslalo
