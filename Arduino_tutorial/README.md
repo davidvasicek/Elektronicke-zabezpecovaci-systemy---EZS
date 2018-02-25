@@ -29,8 +29,10 @@ Tento software lze použít s libovolnou deskou Arduino.
 
 ![zapojeni](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/Zapojeni1.png)
 
+Schéma zapojení bylo vytvořeno v open-source software Fritzing. Tento software můžeme stáhnout ze stránek [http://fritzing.org/download/](http://fritzing.org/download/) 
 
 
+### Kód
 
 
 - **Raspberry Pi** - Výhodná sada Raspberry Pi 3, 16GB karta, chladič, 2.5A zdroj, Onenine, černá [e-shop](http://rpishop.cz/raspberry-pi-sady/299-raspberry-pi-3-vyhodna-sada-krabicka-onenine.html)
