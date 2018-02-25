@@ -26,6 +26,10 @@ Tento software lze použít s libovolnou deskou Arduino.
 - **Rezistor 220 ohm (3x)** - [e-shop](https://www.gme.cz/rm-220r-0309-1w-1)
 - **Mikrospínač (3x)** - [e-shop](https://www.gme.cz/tc-0102-t-a00) 
 
+### WeMos D1 mini PinOut
+
+![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout.png)
+
 ### Zapojení
 
 ![zapojeni](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/Zapojeni1.png)
