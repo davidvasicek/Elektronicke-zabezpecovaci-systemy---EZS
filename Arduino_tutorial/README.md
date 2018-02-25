@@ -28,7 +28,7 @@ Tento software lze použít s libovolnou deskou Arduino.
 
 ### WeMos D1 mini PinOut
 
-![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout.png)
+![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout1.png)
 
 ### Zapojení
 
