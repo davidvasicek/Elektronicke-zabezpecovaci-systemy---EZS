@@ -1,5 +1,6 @@
-Arduino [čti Arduíno] je v informatice název malého jednodeskového počítače založeného na mikrokontrolerech ATmega od firmy Atmel. Svým návrhem se snaží podpořit výuku informatiky ve školách a seznámit studenty s tím, jak jsou pomocí počítačů řízena různá zařízení (např. mikrovlnná trouba, automatická pračka a jiné stroje). Nejedná se tedy o počítač ve smyslu stolního počítače nebo chytrého telefonu. Nelze proto k němu snadno přímo připojit monitor ani klávesnici či myš, ale je připraven na připojení LED diod, displeje z tekutých krystalů, servomotorů, senzorů, osvětlení atd. [1]
+## Arduino
 
+Arduino [čti Arduíno] je v informatice název malého jednodeskového počítače založeného na mikrokontrolerech ATmega od firmy Atmel. Svým návrhem se snaží podpořit výuku informatiky ve školách a seznámit studenty s tím, jak jsou pomocí počítačů řízena různá zařízení (např. mikrovlnná trouba, automatická pračka a jiné stroje). Nejedná se tedy o počítač ve smyslu stolního počítače nebo chytrého telefonu. Nelze proto k němu snadno přímo připojit monitor ani klávesnici či myš, ale je připraven na připojení LED diod, displeje z tekutých krystalů, servomotorů, senzorů, osvětlení atd. [1]
 
 ### Instalace softwaru
 
@@ -33,6 +34,277 @@ Schéma zapojení bylo vytvořeno v open-source software Fritzing. Tento softwar
 
 
 ### Kód
+
+
+
+```c++
+#include <ESP8266WiFi.h>
+#include <WiFiUdp.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+#include <ArduinoJson.h>
+
+
+#define BME280_ADRESA (0x76) // nastavení adresy senzoru
+
+IPAddress IP(169,254,250,149); // adresa serveru
+unsigned int localUdpPort = 2807;  // port
+
+const char* ssid = "IoT";
+const char* password = "raspberry";
+
+char incomingPacket[255];  // buffer for incoming packets
+char  replyPacekt[] = "Hi there! Got the message :-)";  // a reply string to send back
+
+Adafruit_BME280 bme; // inicializace senzoru BME z knihovny
+
+WiFiUDP Udp;
+
+int LED_green = D3; 
+int LED_white = D4; 
+int LED_red = D0; 
+
+int btn_LED_green = D7;
+int btn_LED_white = D6;
+int btn_LED_red = D5;
+
+int FlameDetectionPin = D8;
+
+int i =0;
+
+int FlameDetection_value;
+
+unsigned long aktualniMillis = 0; //aktualni cas
+unsigned long predchoziMillis = 0; //cas poseldni akce
+
+int lastButtonState = 0;
+int lastButtonState1 = 0;
+int lastButtonState2 = 0;
+
+int lastFlameDetectionState = 0;
+
+void setup()
+{
+  Serial.begin(115200);
+  Serial.println();
+
+  Serial.printf("Connecting to %s ", ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println(" connected");
+
+  Udp.begin(localUdpPort);
+  Serial.printf("Now listening at IP %s, UDP port %d\n", WiFi.localIP().toString().c_str(), localUdpPort);
+
+  // TODO
+  if (!bme.begin(BME280_ADRESA)) {
+    Serial.println("BME280 senzor nenalezen, zkontrolujte zapojeni!");
+    while (1);
+  }
+
+  // TODO registrace zařízení
+  StaticJsonBuffer<200> jsonBuffer11;
+  JsonObject& reg = jsonBuffer11.createObject();
+
+  reg["Message"] = "register";
+  reg["DeviceID"] = WiFi.macAddress();
+  reg["DeviceIP"] = WiFi.localIP().toString();
+  reg["Description"] = "BME280,LED";
+
+  Udp.beginPacket(IP, localUdpPort);
+  reg.printTo(Udp);
+  Udp.endPacket();
+
+  pinMode(FlameDetectionPin, INPUT);
+
+  pinMode(LED_green, OUTPUT);
+  pinMode(LED_white, OUTPUT);
+  pinMode(LED_red, OUTPUT);
+
+  pinMode(btn_LED_green,INPUT_PULLUP);
+  pinMode(btn_LED_white,INPUT_PULLUP);
+  pinMode(btn_LED_red,INPUT_PULLUP);
+
+}
+
+void loop()
+{
+
+  int flameDetectionState = 1 - digitalRead(FlameDetectionPin);
+
+  if (flameDetectionState != lastFlameDetectionState) {
+
+    StaticJsonBuffer<200> jsonBuffer;
+    JsonObject& root = jsonBuffer.createObject();
+
+    root["Message"] = "sensorData";
+    root["ArduinoID"] = WiFi.macAddress();
+    root["sensor"] = "FlameDetection";
+
+    JsonObject& data = root.createNestedObject("data");
+    data.set("status", flameDetectionState ); 
+
+    Udp.beginPacket(IP, localUdpPort);
+    root.printTo(Udp);
+    Udp.endPacket();
+
+    lastFlameDetectionState = flameDetectionState; 
+  }
+
+  int buttonState = 1 - digitalRead(btn_LED_green);
+
+  if (buttonState != lastButtonState) {
+
+    if (buttonState == 1) { 
+
+      Serial.println("btn 1");
+      switchLight("btn_LED_green");
+    }
+    
+    lastButtonState = buttonState;
+  }
+
+  int buttonState1 = 1 - digitalRead(btn_LED_white);
+
+  if (buttonState1 != lastButtonState1) {
+    
+    if (buttonState1 == 1) { 
+
+      Serial.println("btn 2");
+      switchLight("btn_LED_white");
+    }
+    
+    lastButtonState1 = buttonState1;
+  }
+
+  int buttonState2 = 1 - digitalRead(btn_LED_red);
+
+  if (buttonState2 != lastButtonState2) {
+
+    if (buttonState2 == 1) { 
+
+      Serial.println("btn 3");
+      switchLight("btn_LED_red"); 
+    }
+
+    lastButtonState2 = buttonState2;
+  }
+
+  int packetSize = Udp.parsePacket();
+  if (packetSize){
+    
+    // receive incoming UDP packets
+    //Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
+    int len = Udp.read(incomingPacket, 255);
+
+    // char JSONMessage[] = " {\"Sensor\": \"LED_green\", \"Value\": 1}"; 
+     
+    if (len > 0)
+    {
+      incomingPacket[len] = 0;
+    }
+    
+    //Serial.printf("UDP packet contents: %s\n", incomingPacket);
+
+    StaticJsonBuffer<300> JSONBuffer;   //Memory pool
+    JsonObject& parsed = JSONBuffer.parseObject(incomingPacket); //Parse message
+ 
+    const char * sensorType = parsed["Sensor"]; //Get sensor type value
+    int value = parsed["Value"];      
+
+    //Serial.println(sensorType);
+    //Serial.println(value);
+      
+    if(strcmp (sensorType,"LED_green") == 0){
+
+      analogWrite(LED_green, value);
+      
+    }
+
+    if(strcmp (sensorType,"LED_white") == 0){
+
+      analogWrite(LED_white, value);
+      
+    }
+
+    if(strcmp (sensorType,"LED_red") == 0){
+
+      analogWrite(LED_red, value);
+      
+    }
+  }
+
+  aktualniMillis = millis(); //aktualni cas
+
+  if(aktualniMillis - predchoziMillis > 5000){
+
+    predchoziMillis = aktualniMillis;
+  
+    if(!isnan(bme.readTemperature())){
+
+      StaticJsonBuffer<200> jsonBuffer;
+      JsonObject& root = jsonBuffer.createObject();
+
+      root["Message"] = "sensorData";
+      root["ArduinoID"] = WiFi.macAddress();
+      root["sensor"] = "BME280";
+
+      JsonObject& data = root.createNestedObject("data");
+      data.set("temperature", bme.readTemperature()); // výpis teploty
+      data.set("humidity", bme.readHumidity()); // výpis relativní vlhkosti
+      data.set("pressure", bme.readPressure() / 100.0F);  // výpis tlaku s přepočtem na hektoPascaly
+
+      Udp.beginPacket(IP, localUdpPort);
+      root.printTo(Udp);
+      Udp.endPacket();
+  
+    }
+  }
+  
+}
+
+//...................................Flame detection...................................
+
+
+
+void FlameDetection_setup() {
+
+  pinMode(FlameDetectionPin, INPUT);
+}
+
+void FlameDetection_loop() {
+
+  FlameDetection_value = 1 - digitalRead(FlameDetectionPin);
+
+}
+
+void switchLight(String sensor){
+
+    StaticJsonBuffer<200> jsonBuffer1;
+    JsonObject& root1 = jsonBuffer1.createObject();
+
+    root1["Message"] = "sensorData";
+    root1["ArduinoID"] = WiFi.macAddress();
+    root1["sensor"] = sensor;
+
+    JsonObject& data1 = root1.createNestedObject("data");
+    data1.set("status", 1 ); 
+
+    Udp.beginPacket(IP, localUdpPort);
+    root1.printTo(Udp);
+    Udp.endPacket();
+
+    Serial.println("btn");
+
+}
+
+```
 
 
 - **Raspberry Pi** - Výhodná sada Raspberry Pi 3, 16GB karta, chladič, 2.5A zdroj, Onenine, černá [e-shop](http://rpishop.cz/raspberry-pi-sady/299-raspberry-pi-3-vyhodna-sada-krabicka-onenine.html)
