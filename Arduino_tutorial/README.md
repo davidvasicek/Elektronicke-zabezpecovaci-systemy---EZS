@@ -27,6 +27,7 @@ Tento software lze použít s libovolnou deskou Arduino.
 
 ### Zapojení
 
+![zapojeni](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/Zapojeni.png)
 
 
 
