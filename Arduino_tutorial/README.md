@@ -30,8 +30,8 @@ Tento software lze použít s libovolnou deskou Arduino.
 
 ![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout3.png)
 
-SPI: D5 = SCK, D6 = MISO, D7 = MOSI, D8 = SS
-I2C: D1 = SCL, D2 = SDA
+**SPI**: D5 = SCK, D6 = MISO, D7 = MOSI, D8 = SS; 
+**I2C**: D1 = SCL, D2 = SDA
 
 ### Zapojení
 
