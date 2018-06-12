@@ -224,7 +224,7 @@ Původní Dashboard, který byl upraven naším požadavkům byl stažen ze str�
 
 # Mobilní aplikace pro platformu Android
 
-![Android App Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/AndroidApp_screen.png)
+![Android App Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Android_app_screen.png)
 	
 
 ### Software
