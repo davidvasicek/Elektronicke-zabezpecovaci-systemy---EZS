@@ -73,5 +73,178 @@ Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena 
 
 2. **Vytvoření nového projektu** na stránkách [https://console.firebase.google.com/](https://console.firebase.google.com/) vytvořte nový projekt kliknutím na tlačítko *Add project*. V dalším kroku vyplňte potřebné údaje a nový projekt vytvořte stisknutím *CREATE PROJEKT*.
 
+## Raspberry Pi
+
+Raspberry Pi (výslovnost [ˈraːzbəri pai]) je v informatice název malého jednodeskového počítače s deskou plošných spojů o velikosti zhruba platební karty. V roce 2012 byl vyvinut britskou nadací Raspberry Pi Foundantion s cílem podpořit výuku informatiky ve školách a seznámit studenty s tím, jak mohou počítače řídit různá zařízení (např. mikrovlnná trouba, automatická pračka). Primárním operačním systémem je Raspbian. Cena je na konci roku 2016 v rozmezí 150–1 200 Kč (nejlevnější je Raspberry Pi Zero, nejdražší pak Raspberry Pi 3 Model B). Označení „Raspberry Pi“ je registrovanou ochrannou známkou, a proto mají podobně navržené počítače zdánlivě odvozené názvy (např. Banana Pi) [1]
+
+### Software
+
+**Raspbian** ( anglická výslovnost [raːzbiən] IPA ) je operační systém odvozený od Debianu pro Raspberry Pi i osobní počítače . [2] Je oficiálně poskytován nadací Raspberry Pi Foundation jako primární operační systém pro jednoplášťové počítače z rodiny Raspberry Pi. [1] Raspbian byl vytvořen Mikem Thompsonem a Peterem Greenem jako nezávislý projekt. [5] První sestavení byla dokončena v červnu 2012. [6] Raspbian je vysoce optimalizovaný pro ARM procesory používané v Raspberry Pi. [2]
+
+1. **Stažení operačního systému.** Raspbian je součásti instalačního balíčku zvaného NOOBS, který nalezneme na oficiálních stránkách organizace RaspberryPi [Download zde](https://www.raspberrypi.org/downloads/noobs/). Stáhneme NOOBS ve formátu .zip kliknutím na tlačítko *Download ZIP*.
+
+2. **Příprava Micro SD karty.** Pokud naše karta obsahuje zastaralá data, bude nutné kartu v prvé řadě naformátovat. To provedeme programem zvaným SD Memory Card Formatter [Download zde](https://www.sdcard.org/downloads/formatter_4/).
+
+3. **Kopírování souborů na Micro SD kartu.** Jestliže máme balíček NOOBS stažený a paměťovou kartu naformátovanou, překopírujeme veškeré soubory ze ZIP archívu balíčku NOOBS na paměťovou kartu.
+
+4. **Instalace OS.** Paměťovou kartu vložíme do našeho zařízení Raspberry Pi a připojíme monitor a napájení. Po nabootování paměťové karty se zobrazí nabídka, ve které zaškrtávacím políčkem zvolíme *Raspbian with PIXEL* a stiskem tlačítka *Install* system Raspbian nainstalujeme.
+
+### Prvotní spuštění systému
+
+1. **Připojení k internetu.** 
+
+    - **Kabelové připojení (ETH0):** V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
+    - **Bezdrátové připojení (WLAN0):** Pokud budeme využívat WiFi připojení, nalezneme v grafickém prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
+    - **Získáni IP adresy:** Spusťte příkazový řádek a zadejte příkaz `ifconfig`. IP adresu najdeme pod označením *inet*. V případě kabelového připojení v *ETH0*, v případě bezdrátového připojení *WLAN0*.
+2. **Povolení protokolu SSH (Secure Shell).** v prostředí OS Raspbianu klikneme v levém horním rohu na ikonu maliny -> Preferences -> Raspberry Pi Configuration -> Interfaces -> SSH: Enable -> OK [Návod zde](https://www.raspberrypi.org/documentation/remote-access/ssh/).
+3. **Update a Upgrade systému.** Spusťte příkazový řádek a zadejte příkaz `sudo apt-get -y upgrade`, po dokončení zadejte příkaz `sudo apt-get -y update`
+
+### Instalace repozitářů
+
+Přejděte do příkazovéhé řádky a přihlaste se jako správce root příkazem `sudo -i`. Pokud nebudete jako správce přihlášeni, budou vám chybět oprávnění k následujícím úkonům.
+
+1. **Instalace FTP**. FTP (File Transfer Protocol) slouží pro přenos souborů mezi Raspberry Pi a jiným počítačem.
+
+    ```
+    apt-get install -y vsftpd
+    nano /etc/vsftpd.conf // úprava konfiguračního souboru vsftpd.conf
+    	// změťe #write_enable=YES na write_enable=YES
+    /etc/init.d/vsftpd restart
+    ```
+
+2. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [4]. Npm je správce balíčků pro programovací jazyk JavaScript. [5]
+    
+    ``` 
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	apt-get install nodejs
+	apt-get install npm
+	node -v
+	npm -v
+    ``` 
+   
+   vytvoření ukázkového skriptu:
+    ```
+    mkdir /home/pi/IoT
+    chmod 777 /home/pi/IoT
+    cd /home/pi/IoT
+    nano server.js
+    	console.log("Hello world, I am IoT server");
+    chmod 777 server.js
+    node server.js
+	``` 
+3. **Vytvoření bezdrátového přístupového bodu.** Raspberry Pi může být používán jako bezdrátový přístupový bod, který má samostatnou síť. To lze provést pomocí vestavěných bezdrátových prvků Raspberry Pi 3 nebo Raspberry Pi Zero W nebo pomocí vhodného bezdrátového USB klíče, který podporuje přístupové body. Bezdrátový přístupový bod vytvoříte dle náslodujícího tutoriálu [Tutorial zde](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md). Název SSID zvolte *IoTnet* a heslo *raspberry*
+
+
+### Vytvoření interní databáze MariaSQL
+
+MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou větví (tzv, „forkem“) MySQL. Hlavním důvodem k vytvoření této větve bylo udržení licence svobodného softwaru GNU GPL. [odkaz10] V našem případě nám bude sloužit pro dlouhodobé ukládání dat jednotlivých senzorů. Tyto data budou sloužit pro analýzu, statistiku a vizualizaci na serveru. 
+
+1. **Instalace MariDB.** 
+
+    ```
+	sudo apt install -y mariadb-server
+    ```
+    
+2. **Přihlášení do MariDB a vytvoření nové databáze s názvem IoT** (defaultní heslo pro vstup do databáze je heslo uživatele root => raspberry)
+
+	``` 
+	mysql -u root -p // Přihlášení do MariDB
+	CREATE DATABASE IoT;  // Vytvoří novou databázi s názvem IoT
+	```
+
+3. **Udělení oprávnění pro přístup do databáze**
+
+	```
+	   CREATE USER 'pi'@'localhost' IDENTIFIED BY 'raspberry'; // vytvoření nového uživatele pi'@'localhost identifikovatelného podle hesla raspberry
+	   GRANT ALL PRIVILEGES ON IoT.* TO 'pi'@'localhost' IDENTIFIED BY 'raspberry' WITH GRANT OPTION; // povolení přístupu uživateli pi do všech tabulek v databázi IoT, který se identifikoval heslem raspberry
+	   FLUSH PRIVILEGES; // flush pravidel
+	   USE IoT; // přepnutí se do databáze IoT, ve které budeme vytvářet nové tabulky
+	```
+
+4. **Vytvoření tabulek** Budou vytvořeny celk 4 tabulky, každá pro jeden ze senzorů zasílající svá data serveru. Tbulka DHT11 uchovávající data o teplotě a vlhkosti, tabulka BH1750 uchovávající informace o intenzitě osvětlení, tabulka NoiseIntensity uchovávající informace o hladiny zvuku ve svém okolí a tabulka SoilMoisture uchovávající informace o detekované vlhkosti půdy.
+	
+	
+	``` 	
+	CREATE TABLE IF NOT EXISTS DHT11(
+	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	Temperature VARCHAR(500) NOT NULL,
+	Humidity VARCHAR(500) NOT NULL,
+	TimeStamp NUMERIC(20) NOT NULL
+	);
+	``` 
+
+	``` 
+	CREATE TABLE IF NOT EXISTS BH1750(
+	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	Value VARCHAR(500) NOT NULL,
+	TimeStamp NUMERIC(20) NOT NULL
+	);
+	``` 
+
+	``` 
+	CREATE TABLE IF NOT EXISTS NoiseIntensity(
+	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	Value VARCHAR(500) NOT NULL,
+	TimeStamp NUMERIC(20) NOT NULL
+	);
+	``` 
+
+	``` 
+	CREATE TABLE IF NOT EXISTS SoilMoisture(
+	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	Value VARCHAR(500) NOT NULL,
+	TimeStamp NUMERIC(20) NOT NULL
+	);
+	```
+	
+### Kód
+
+Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js TODO]()	
+
+Kód severu se skládá především z posluchače UDP pakétů a několika posluchačů na změny databáze Firebase
+
+## Webový server
+
+
+### Instalace
+
+Pro účely našeho projektu využijeme webový server Apache HTTP Server, který nainstalujeme příkazem
+
+    ```
+	apt-get install apache2
+    ```
+    
+Tento webový server očekává svá data v adresáři /var/www/html. Proto 
+
+
+
+
+
+
+
+apt-cache pkgnames | grep php7.0
+sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
+(více na https://www.vultr.com/docs/how-to-install-and-configure-php-70-or-php-71-on-ubuntu-16-04)
+sudo systemctl restart apache2
+
+
+dashboard ---------------------------------------------------
+
+1) stažení souboru čistého kódu: https://github.com/puikinsh/sufee-admin-dashboard
+2) apt-get install apache2
+3) překopírování kodu do adresáře /var/www/html
+4) povolení práv ... chmod 777 -R /var/www/html
+
+
+
+ADD ANOTHER PROJECT - Add Firebase to your web app - zkopirování zdrojového kódu a vložením do webu
+
+
+
+
+
+
+	
+
 ### Zdroje
 - [1] https://cs.wikipedia.org/wiki/Arduino
