@@ -132,8 +132,6 @@ Přejděte do příkazovéhé řádky a přihlaste se jako správce root příka
     chmod 777 server.js
     node server.js
 	``` 
-3. **Vytvoření bezdrátového přístupového bodu.** Raspberry Pi může být používán jako bezdrátový přístupový bod, který má samostatnou síť. To lze provést pomocí vestavěných bezdrátových prvků Raspberry Pi 3 nebo Raspberry Pi Zero W nebo pomocí vhodného bezdrátového USB klíče, který podporuje přístupové body. Bezdrátový přístupový bod vytvoříte dle náslodujícího tutoriálu [Tutorial zde](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md). Název SSID zvolte *IoTnet* a heslo *raspberry*
-
 
 ### Vytvoření interní databáze MariaSQL
 
@@ -149,7 +147,7 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 
 	``` 
 	mysql -u root -p // Přihlášení do MariDB
-	CREATE DATABASE IoT;  // Vytvoří novou databázi s názvem IoT
+	CREATE DATABASE IoT;  // Vytvoření nové databáze s názvem IoT
 	```
 
 3. **Udělení oprávnění pro přístup do databáze**
@@ -161,52 +159,42 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	   USE IoT; // přepnutí se do databáze IoT, ve které budeme vytvářet nové tabulky
 	```
 
-4. **Vytvoření tabulek** Budou vytvořeny celk 4 tabulky, každá pro jeden ze senzorů zasílající svá data serveru. Tbulka DHT11 uchovávající data o teplotě a vlhkosti, tabulka BH1750 uchovávající informace o intenzitě osvětlení, tabulka NoiseIntensity uchovávající informace o hladiny zvuku ve svém okolí a tabulka SoilMoisture uchovávající informace o detekované vlhkosti půdy.
+4. **Vytvoření tabulek** Budou vytvořeny celk 2 tabulky, každá pro jeden ze senzorů zasílající svá data serveru. Tbulka BME280 uchovávající data o teplotě, vlhkosti a barometrického tlaku, tabulka FlameDetection uchovávající informace o detekovaném požáru.
 	
 	
 	``` 	
-	CREATE TABLE IF NOT EXISTS DHT11(
+	CREATE TABLE IF NOT EXISTS BME280(
 	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	Temperature VARCHAR(500) NOT NULL,
 	Humidity VARCHAR(500) NOT NULL,
+	Pressure VARCHAR(500) NOT NULL,
 	TimeStamp NUMERIC(20) NOT NULL
 	);
 	``` 
 
 	``` 
-	CREATE TABLE IF NOT EXISTS BH1750(
+	CREATE TABLE IF NOT EXISTS FlameDetection(
 	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	Value VARCHAR(500) NOT NULL,
 	TimeStamp NUMERIC(20) NOT NULL
 	);
 	``` 
-
-	``` 
-	CREATE TABLE IF NOT EXISTS NoiseIntensity(
-	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	Value VARCHAR(500) NOT NULL,
-	TimeStamp NUMERIC(20) NOT NULL
-	);
-	``` 
-
-	``` 
-	CREATE TABLE IF NOT EXISTS SoilMoisture(
-	id INT(20) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	Value VARCHAR(500) NOT NULL,
-	TimeStamp NUMERIC(20) NOT NULL
-	);
-	```
 	
 ### Kód
 
-Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js TODO]()	
+Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js](TODO)	
 
-Kód severu se skládá především z posluchače UDP pakétů a několika posluchačů na změny databáze Firebase
+Kód severu se skládá především z posluchače UDP pakétů a několika posluchačů na změny databáze Firebase TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-## Webový server
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
+# Webový server
+
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 ### Instalace
+
+![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
 
 Pro účely našeho projektu využijeme webový server Apache HTTP Server, který nainstalujeme příkazem
 
@@ -214,36 +202,28 @@ Pro účely našeho projektu využijeme webový server Apache HTTP Server, kter�
 	apt-get install apache2
     ```
     
-Tento webový server očekává svá data v adresáři /var/www/html. Proto 
+Tento webový server očekává svá data v adresáři /var/www/html. Do tohoto adresáře budeme kopírovat veškerá data, která najdeme v následujícím archívu [Dashboard.rar](TODO)	 
+
+Jakmile jsou veškerá data zkopírování v adresáři /var/www/html, nastavíme přístupová práva všech souborů a adresářů v dané cestě příkazem `sudo chmod 777 -R /var/www/html`
+
+Web, který pro naše účely používáme, využívá skriptu v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat a následně webový server restartujeme.
+
+    ``` 
+	sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl 	php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
+	sudo systemctl restart apache2
+    ``` 
+    
+### Kód
+ 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+Původní Dashboard, který byl upraven naším požadavkům byl stažen ze stránek GitHubu [https://github.com/puikinsh/sufee-admin-dashboard](https://github.com/puikinsh/sufee-admin-dashboard) 
 
 
 
-
-
-
-
-apt-cache pkgnames | grep php7.0
-sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
-(více na https://www.vultr.com/docs/how-to-install-and-configure-php-70-or-php-71-on-ubuntu-16-04)
-sudo systemctl restart apache2
-
-
-dashboard ---------------------------------------------------
-
-1) stažení souboru čistého kódu: https://github.com/puikinsh/sufee-admin-dashboard
-2) apt-get install apache2
-3) překopírování kodu do adresáře /var/www/html
-4) povolení práv ... chmod 777 -R /var/www/html
-
-
-
-ADD ANOTHER PROJECT - Add Firebase to your web app - zkopirování zdrojového kódu a vložením do webu
-
-
-
-
-
-
+# Mobilní aplikace pro platformu Android
 	
 
 ### Zdroje
