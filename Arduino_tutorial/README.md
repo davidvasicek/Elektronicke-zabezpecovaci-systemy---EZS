@@ -192,15 +192,14 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-### Instalace
-
 ![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
 
-Pro účely našeho projektu využijeme webový server Apache HTTP Server, který nainstalujeme příkazem
+### Instalace
 
-    ```
-	apt-get install apache2
-    ```
+Pro účely našeho projektu využijeme webový server Apache HTTP Server, který nainstalujeme příkazem
+    ``` 
+	apt-get install -y apache2
+    ``` 
     
 Tento webový server očekává svá data v adresáři /var/www/html. Do tohoto adresáře budeme kopírovat veškerá data, která najdeme v následujícím archívu [Dashboard.rar](TODO)	 
 
@@ -209,7 +208,7 @@ Jakmile jsou veškerá data zkopírování v adresáři /var/www/html, nastavím
 Web, který pro naše účely používáme, využívá skriptu v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat a následně webový server restartujeme.
 
     ``` 
-	sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl 	php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
+	sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
 	sudo systemctl restart apache2
     ``` 
     
@@ -224,7 +223,12 @@ Původní Dashboard, který byl upraven naším požadavkům byl stažen ze str�
 
 
 # Mobilní aplikace pro platformu Android
+
+![Android App Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/AndroidApp_screen.png)
 	
 
-### Zdroje
+### Software
+
+
+
 - [1] https://cs.wikipedia.org/wiki/Arduino
