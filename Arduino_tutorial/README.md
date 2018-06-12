@@ -2,20 +2,7 @@
 
 Arduino [čti Arduíno] je v informatice název malého jednodeskového počítače založeného na mikrokontrolerech ATmega od firmy Atmel. Svým návrhem se snaží podpořit výuku informatiky ve školách a seznámit studenty s tím, jak jsou pomocí počítačů řízena různá zařízení (např. mikrovlnná trouba, automatická pračka a jiné stroje). Nejedná se tedy o počítač ve smyslu stolního počítače nebo chytrého telefonu. Nelze proto k němu snadno přímo připojit monitor ani klávesnici či myš, ale je připraven na připojení LED diod, displeje z tekutých krystalů, servomotorů, senzorů, osvětlení atd. [1]
 
-### Instalace softwaru
-
-Open-source software Arduino IDE umožňuje snadné psaní kódu a jeho nahrávání na desku. Spouští se na systémech Windows, Mac OS X a Linux a jeho prostředí je napsáno v jazyce Java a je také založeno na zpracování a jiném open-source softwaru.
-Tento software lze použít s libovolnou deskou Arduino.
-
-1. **Stažení softwaru Arduino IDE** Software Arduino IDE je dostupný na oficiálních stráchkách společnosti Arduino [Download zde](https://www.arduino.cc/en/main/software). Instalační soubor je možné stáhnout v sekci  *Download the Arduino IDE* kliknutím na *Windows Installer* a následným kliknutím na tlačítko *JUST DOWNLOAD*
-
-2. **Instalace softwaru Arduino IDE** Stažený instalační soubor Arduina IDE otevřeme, software nainstalujeme a následně spustíme
-
-3. **Instalace WiFi čipu ESP 8266** Samotný software Arduino IDE neobsahuje podporu desek s WiFi čipy ESP8266, proto je nutné tuto podporu doinstalovat. Využijeme návodu vytvořeného společností Arduino-shop [Návod zde](http://navody.arduino-shop.cz/navody-k-produktum/esp8266-vyvojova-deska-wemos-d1.html). *Pozn.: Vývojovou desku nevolte dle návodu WeMos D1 (retired), ale zvolte WeMos D1 R2 & mini*.
-
-4. **Připojení desky WeMos D1 mini** Desku WeMos D1 mini připojte kabelem Micro USB k PC, v sotwaru Arduino IDE Nástroje -> Port a zvolte port, ke kterému jste vaší desku připojili.
-
-### Haedware
+### Hardware
 
 - **WeMos D1 Mini** - Wemos D1 Mini je Wifi vývojová breadbord kompatibilní deska, založená na ESP8266 [e-shop](https://arduino-shop.cz/arduino/1679-externi-konektor-anteny-wemos-d1-mini-pro-16mb-1501219041.html?gclid=EAIaIQobChMInLuQ9d_A2QIVhOcbCh35RwMeEAQYASABEgJ-zvD_BwE)
 - **Senzor Plamene Infračervený Detekční Modul** - Modul detekuje plamen nebo podobné světlo o vlnové délce 760nm. [e-shop](https://arduino-shop.cz/arduino/1520-senzor-plamene-infracerveny-detekcni-modul-1486113741.html) | [návod](http://navody.arduino-shop.cz/navody-k-produktum/infracerveny-senzor-plamene.html)
@@ -26,18 +13,35 @@ Tento software lze použít s libovolnou deskou Arduino.
 - **Rezistor 220 ohm (3x)** - [e-shop](https://www.gme.cz/rm-220r-0309-1w-1)
 - **Mikrospínač (3x)** - [e-shop](https://www.gme.cz/tc-0102-t-a00) 
 
-### WeMos D1 mini PinOut
+### Software
 
-![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout3.png)
+Open-source software Arduino IDE umožňuje snadné psaní kódu a jeho nahrávání na desku. Spouští se na systémech Windows, Mac OS X a Linux a jeho prostředí je napsáno v jazyce Java a je také založeno na zpracování a jiném open-source softwaru.
+Tento software lze použít s libovolnou deskou Arduino.
 
-- **SPI**: D5 = SCK, D6 = MISO, D7 = MOSI, D8 = SS; 
-- **I2C**: D1 = SCL, D2 = SDA
+1. **Stažení a instalace softwaru Arduino IDE** - Software Arduino IDE je dostupný na oficiálních stráchkách společnosti Arduino [Download zde](https://www.arduino.cc/en/main/software). 
+
+2. **Instalace WiFi čipu ESP 8266** Samotný software Arduino IDE neobsahuje podporu desek s WiFi čipy ESP8266, proto je nutné tuto podporu doinstalovat. Využijeme návodu vytvořeného společností Arduino-shop [Návod zde](http://navody.arduino-shop.cz/navody-k-produktum/esp8266-vyvojova-deska-wemos-d1.html). *Pozn.: Vývojovou desku nevolte dle návodu WeMos D1 (retired), ale zvolte WeMos D1 R2 & mini*.
+
+3. **Připojení desky WeMos D1 mini** Desku WeMos D1 mini připojte kabelem Micro USB k PC, v sotwaru Arduino IDE Nástroje -> Port a zvolte port, ke kterému jste vaší desku připojili.
+
+4. **Instalace knihoven** - Návod, jak knihovny do prostředí Arduino IDE implementovat nalezneme [zde](http://navody.arduino-shop.cz/zaciname-s-arduinem/arduino-knihovny.html). Pořebné knihovny: **BME280** [Download](https://github.com/adafruit/Adafruit_BME280_Library), **ArduinoJson** [Download](https://github.com/bblanchon/ArduinoJson)
 
 ### Zapojení
 
 ![zapojeni](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/Zapojeni1.png)
 
 Schéma zapojení bylo vytvořeno v open-source software Fritzing. Tento software můžeme stáhnout ze stránek [http://fritzing.org/download/](http://fritzing.org/download/) 
+Veškeré externí komponenty, které nejsou součástí knihovny programu Fritzing, nakeznete [zde TODO]()
+
+
+#### PinOut
+
+![WeMos D1 mini PinOut](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/WeMos%20D1%20mini%20pinout3.png)
+
+- **SPI**: D5 = SCK, D6 = MISO, D7 = MOSI, D8 = SS; 
+- **I2C**: D1 = SCL, D2 = SDA
+
+
 
 ### Kód
 
