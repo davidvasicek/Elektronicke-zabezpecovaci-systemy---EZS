@@ -185,27 +185,31 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	);
 	``` 
 	
+	
+#### Spuštění skriptu serveru na pozadí jako Daemon
+
+TODO
+
+	
 #### Kód
 
-Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js](TODO)	
+Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js](TODO) (tento kód překopírujte do již dříve vytvořeného souboru server.js v adresáři /home/pi/IoT/)	
 
-kód serveru se zkládá z několika sekcí pro lepší orientaci a snadnější pochopení celého kódu a jeho funkčniosti. Na samotném začátku kódu se nachází import knihoven (balíčků) spravovaného nátrojem npm, inicializace realtime databáze Firebase a inicializace klienta pro Maria databázi.
+kód serveru se skládá z několika sekcí pro lepší orientaci a snadnější pochopení celého kódu a jeho funkčnosti. Na samotném začátku kódu se nachází import knihoven (balíčků) spravovaného nástrojem npm, inicializace realtime databáze Firebase a inicializace klienta pro Maria databázi.
 
-První sekci, která se nachází těsně pod potřebnými inicializacemi je sekce *RASPBERRY PI INFO*. V této sekci sochází k vytěžení IP adres z jednotlivých rozhranní (ETH0, WLAN0) a také k získání sériového čísla zařízení, které je přečteno ze souboru /proc/cpuinfo pod označením jako serial:. Všechny tyto informace jsou posléze uloženy do databáze Firebase s referencí *Gateway/Info* a mají především informativni charaktér.
+První sekci, která se nachází těsně pod potřebnými inicializacemi je sekce *RASPBERRY PI INFO*. V této sekci dochází k vytěžení IP adres z jednotlivých rozhraní (ETH0, WLAN0) a také k získání sériového čísla zařízení, které je přečteno ze souboru /proc/cpuinfo pod označením jako serial:. Všechny tyto informace jsou posléze uloženy do databáze Firebase s referencí *Gateway/Info* a mají především informativní charakter.
 
-Další sekcí, tou nejdůležitější, je sekce *UDP PACKET LISTENER*. V této sekci je implementován UDP posluchač, který naslouchá příchozím paketům na otevřeném portu 2807 a dále je zpracovává. Posluchač předvídá, že veškeré IoT zařízení zasílají zprávy ve formátu JSON, proto veškeré pakety po příchodu ihned parsuje. Na základě takto rozpársovaných paketů následně rozlišuje tři základni typy zpráv, které jsou v paketu obsaženy. DeviceRegister, sensorData a actionData. Zpráva DeviceRegister informuje server o novém IoT zařízení v síti a server jej může řádně registrovat. Zprávy tohoto charakteru nesou potřebné informace o daném zařízení, jako je názec zařízení, ID, IP adresa, MAC adresa a pod. Zpráva sensorData informuje server, že v těle paketu je přenášen objekt dat s užitečnými informacemi generovánými určitým senzorem. Tyto data se dále nezpracovávají a jsou rovnou uloženy do databáze Firebase. To je prováděno z toho důvodu, že né vždy můžeme znát specifický charakter každého senzoru a v případě nějakého neznámeho senzoru požadujeme data alespoň zaznamenat. Poslední zprávou je zpráva actionData, která server informuje o nějakém požadavku na změnu (např. rozsvícení, zhasnutí osvětlení, apod.) a jsou většinou generovaný interakcí uživatele.
+Další sekcí, tou nejdůležitější, je sekce *UDP PACKET LISTENER*. V této sekci je implementován UDP posluchač, který naslouchá příchozím paketům na otevřeném portu 2807 a dále je zpracovává. Posluchač předvídá, že veškeré IoT zařízení zasílají zprávy ve formátu JSON, proto veškeré pakety po příchodu ihned parsuje. Na základě takto rozparsovaných paketů následně rozlišuje tři základní typy zpráv, které jsou v paketu obsaženy. DeviceRegister, sensorData a actionData. Zpráva DeviceRegister informuje server o novém IoT zařízení v síti a server jej může řádně registrovat. Zprávy tohoto charakteru nesou potřebné informace o daném zařízení, jako je název zařízení, ID, IP adresa, MAC adresa apod. Zpráva sensorData informuje server, že v těle paketu je přenášen objekt dat s užitečnými informacemi generovanými určitým senzorem. Tyto data se dále nezpracovávají a jsou rovnou uloženy do databáze Firebase. To je prováděno z toho důvodu, že ne vždy můžeme znát specifický charakter každého senzoru a v případě nějakého neznámého senzoru požadujeme data alespoň zaznamenat. Poslední zprávou je zpráva actionData, která server informuje o nějakém požadavku na změnu (např. rozsvícení, zhasnutí osvětlení apod.) a jsou většinou generovaný interakcí uživatele.
 
-Další sekce *UDP PACKET SEND* obsahuje funkci SendUDPPacket, která ma za úkol vytvořit UDP packet a zaslat jej na příslušnou adresu. Vlastní informace, přenášena v těle paketu je předávána parametrem *MESSAGE* a parametr *HOST* definuje adresu zařízení, na kterou se má packet zaslat. 
+Další sekce *UDP PACKET SEND* obsahuje funkci SendUDPPacket, která má za úkol vytvořit UDP packet a zaslat jej na příslušnou adresu. Vlastní informace, přenášena v těle paketu je předávána parametrem *MESSAGE* a parametr *HOST* definuje adresu zařízení, na kterou se má packet zaslat. 
 
-Po sekci *UDP PACKET SEND* následuje sekce *SAVE TO INTERNAL DATABASE*, která obsahuje funkci se stejnojmenným názvem saveToInternalDatabase a slouží pro ukládání příchozích dat do interní databáze, jak už název sám napovídá. Tato funkce je naprogramována staticky a ukládá do interni databáze pouze senzory typu BME280 a FlameDetection.
+Po sekci *UDP PACKET SEND* následuje sekce *SAVE TO INTERNAL DATABASE*, která obsahuje funkci se stejnojmenným názvem saveToInternalDatabase a slouží pro ukládání příchozích dat do interní databáze, jak už název sám napovídá. Tato funkce je naprogramována staticky a ukládá do interní databáze pouze senzory typu BME280 a FlameDetection.
 
-V né poslení řadě obsahuje také kód serveru sekci *FIREBASE LIGHTS LISTENER*. V této sekci jsou implementovány dva posluchače pro Firebase databázi a naslouchají změnám v referenci *Lights*. První posluchač "child_added" je volán vždy při novém spuštění skriptu, nebo při přidaní nového "childu" do cloudové databáze. V našem případě ovšem neočekáváme rozšíření databáze o nová osvětlení, proto tento poslucha vslouží pouze k prvotnímu naplnění pole objektů *m_lights*, které po celou dobu běhu programu udržuje v paměti. Druhý posluchač "child_changed" je posluchač naslouchající změnám již v definovaných osvětleních. Díky tomuto posluchači jsme schopni zaznamenat změnu stavu ze zapnuto na vypnuto a naopak, nebo také změnu intenzity zaření u konkretního osvětlení. Při každé takovéto změně dojde taktéž ke změně v poli objektů *m_lights*, což nám umožňuje toto pole udržovat stále aktuální. 
+V neposlední řadě obsahuje také kód serveru sekci *FIREBASE LIGHTS LISTENER*. V této sekci jsou implementovány dva posluchače pro Firebase databázi a naslouchají změnám v referenci *Lights*. První posluchač "child_added" je volán vždy při novém spuštění skriptu, nebo při přidaní nového "childu" do cloudové databáze. V našem případě ovšem neočekáváme rozšíření databáze o nová osvětlení, proto tento posluchač slouží pouze k prvotnímu naplnění pole objektů *m_lights*, které po celou dobu běhu programu udržuje v paměti. Druhý posluchač "child_changed" je posluchač naslouchající změnám již v definovaných osvětleních. Díky tomuto posluchači jsme schopni zaznamenat změnu stavu ze zapnuto na vypnuto a naopak, nebo také změnu intenzity záření u konkrétního osvětlení. Při každé takovéto změně dojde taktéž ke změně v poli objektů *m_lights*, což nám umožňuje toto pole udržovat stále aktuální. 
 
 Pravděpodobně nejmenší sekci tohoto kódu je sekce *FIREBASE ARDUINO DEVICE LISTENER*, která slouží pouze k udržení aktuální IP adresy našeho zařízení, kdyby náhodou během chodu programu došlo k její změně.
 
-Poslední a zároveň největší sekcí je sekce *FCM*, jejiž zkratka označuje Firebase Cloud Messaging a jak už název napovídá, jedná se o sekci, která se stará o distribuci notifikací do jednotlivých registrovaných mobilních telefonů. 
-
-Kód severu se skládá především z posluchače UDP pakétů a několika posluchačů na změny databáze Firebase TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+Poslední a zároveň největší sekcí je sekce *FCM*, jejiž zkratka označuje Firebase Cloud Messaging a jak už název napovídá, jedná se o sekci, která se stará o distribuci notifikací do jednotlivých registrovaných mobilních zařízení. Sekce se skládá z posluchače nad referenci *SensorData/FlameDetection* ve Firebase databázi, z posluchačů "child_added" a "child_changed" nad referencí *AndoidDevices* a z hlavní funkce *sendNotification*. Posluchač *FlameDetection* slouží k detekování požáru a následnému zaslání upozornění do příslušných mobilních zařízení. To je docíleno voláním funkce *sendNotification*, která si v prvé řadě vytáhne veškeré autorizované tokeny, kterým následně notifikaci zašle. Aby byly tokeny aktuální bylo nutné definovat již zmiňované posluchače "child_added" a "child_changed" nad referencí *AndoidDevices*, které fungují obdobně jako posluchače v   sekci *FIREBASE LIGHTS LISTENER*.
 
 # Webový server
 
@@ -215,22 +219,21 @@ Pro potřeby našeho projektu jsme použili nejpoužívanějším webový server
 
 ### Instalace
 
-Pro účely našeho projektu využijeme webový server Apache HTTP Server, který nainstalujeme příkazem
     ``` 
 	apt-get install -y apache2
     ``` 
     
-Tento webový server očekává svá data v adresáři /var/www/html. Do tohoto adresáře budeme kopírovat veškerá data, která najdeme v následujícím archívu [Dashboard.rar](TODO)	 
-
-Jakmile jsou veškerá data zkopírování v adresáři /var/www/html, nastavíme přístupová práva všech souborů a adresářů v dané cestě příkazem `sudo chmod 777 -R /var/www/html`
-
-Web, který pro naše účely používáme, využívá skripty v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat. Následně webový server restartujeme.
+Web, který pro naše účely používáme, využívá skripty v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat. Webový server následně restartujeme.
 
     ``` 
 	sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
 	sudo systemctl restart apache2
-    ``` 
+    ```     
     
+Tento webový server očekává svá data v adresáři /var/www/html. Do tohoto adresáře budeme kopírovat veškerá data, která najdeme v následujícím archívu [Dashboard.rar](TODO)	
+
+Jakmile jsou veškerá data zkopírování v adresáři /var/www/html, nastavíme přístupová práva všech souborů a adresářů v dané cestě příkazem `sudo chmod 777 -R /var/www/html`
+
 ### Kód
  
 ![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
@@ -244,7 +247,7 @@ Index.html ... Index.html je hlavní soubor webových stránek, který webový s
 V Index.html kódu si můžeme všimnout také implementaci vlastního JavaScriptu Firebase.js (<script src="assets/js/firebase.js"></script>), kde assets/js/ označuje cestu v hierarchiji adresářů, kde soubor můžeme nalézt. Tento skript se stará o vytěžování dat z databáze Firebase a také o ovládání prvků pro zapínání/vypínání světel, či úpravy jejich intenzity. K tomu slouží implementovány přepínače (switch) a posuvníky (RangeBar). Vzhled těchto prvků je definovaný v nově vytvořeném souboru kaskádových stylů, myStyle.css. (
 <link rel="stylesheet" href="assets/css/myStyle.css">). 
 
-Kromě výše uvedených skriptů implementovaných do souboru Index.html, jsou do tohoto souboru implementovany také skripty chart_temperature_humidity_dashboard.js a chart_pressure_dashboard.js. Zde je potřeba dbát na implementaci těchto skriptů až pod skript Chart.bundle.js, který slouží k inicializaci JavaScriptu Chart.js. Bez něj nám nebudou námi vytvořené skripty fungovat. Jak už tedy text napovídá, skripty slouží k zobrazení grafů na hlavní nástěnce. Oba tyto skripty využívají asynchronního načítání dynamického obsahu (AJAX), čímž odpadá nutnost aktualizovat vždy celou webovou stránku. Tím jsme byli schopni vytvořit Real-Time grafy, které každou sekundu načítají obsah interní databáze MariDb a data zpracovávají. O vytěřování těchto dat se starají php skripty BME280_Data.php a FlameDetection_Data.php, které po přihlášení do interní databáze vyselektují požadovaná data a vrátí je v objektu JSON.
+Kromě výše uvedených skriptů implementovaných do souboru Index.html, jsou do tohoto souboru implementovaný také skripty chart_temperature_humidity_dashboard.js a chart_pressure_dashboard.js. Zde je potřeba dbát na implementaci těchto skriptů až pod skript Chart.bundle.js, který slouží k inicializaci JavaScriptu Chart.js. Bez něj nám nebudou námi vytvořené skripty fungovat. Jak už tedy text napovídá, skripty slouží k zobrazení grafů na hlavní nástěnce. Oba tyto skripty využívají asynchronního načítání dynamického obsahu (AJAX), čímž odpadá nutnost aktualizovat vždy celou webovou stránku. Tím jsme byli schopni vytvořit Real-Time grafy, které každou sekundu načítají obsah interní databáze MariDb a data zpracovávají. O vytěžování těchto dat se starají php skripty BME280_Data.php a FlameDetection_Data.php, které po přihlášení do interní databáze vyselektují požadovaná data a vrátí je v objektu JSON.
 
 Zbytek úprav provedeny v ostatních souborech využívají obdobné postupy výše uvedené, proto je zde nebudu více popisovat.    
 
@@ -252,10 +255,9 @@ Zbytek úprav provedeny v ostatních souborech využívají obdobné postupy vý
 
 ![Android App Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Android_app_screen.png)
 	
-
 ### Software
 
-1. **Stažení a instalace softwaru Android Studio** - Software Android Studio je dostupný na oficiálních stráchkách Android Developer [Download zde](https://developer.android.com/studio/). 
+1. **Stažení a instalace softwaru Android Studio** - Software Android Studio je dostupný na oficiálních stránkách Android Developer [Download zde](https://developer.android.com/studio/). 
 
 2. **Instalace služby Google Play services** - Pro implementaci Firebase do našeho nového projektu budeme prvně muset nainstalovat Google Play services, bez kterých nám Firebase v aplikaci nepoběží. Android Studio -> Tools -> SDK Manager -> SDK Tools -> Google Play Services -> Apply.
 
@@ -269,11 +271,12 @@ Kód projektu pro Android Studio stáhneme z následujícího odkazu. [Android_A
 
 Struktura projektu Android aplikace se skládá z celkem tří aktivit (MainActivity, LoginActivity, DevicesActivity), dvou dialogů (AboutAppDialog, LightIntensityDialog), dvou service (FirebaseMessagingService, FirebaseInstanceIDService) a ze dvou objektů (AndroidDevicesObject, LightsObject). Všechny tyto třídy jsou logicky strukturovány do jednotlivých adresářů dle jejich charakteru. 
 
-Hlavní aktivita, která je defaultně spouštěná při zapnutí aplikace, je aktivita LoginActivity, která slouží pro zadání pinu a ověření přístupu do dané aplikace. K tomu slouží jeden TextView a celkem devět tlačítek, z nichž každé je interaktivní a slouží pro zadání číslice do vstupu pro ověření přístupu. Tento vstup se postupně vypisuje do TextView, čimž uživatel může postupně kontrolav zadávající pin. Při každé takovéto interakci kontroluje kód také velikost vstupu uživatelem zadaný. Je-li uživatelem zadána již šestá číslice, dojde k ověření tehoto vstupu vůči databázi firebase.
+Hlavní aktivita, která je defaultně spouštěná při zapnutí aplikace, je aktivita LoginActivity, která slouží pro zadání pinu a ověření přístupu do dané aplikace. K tomu slouží jeden TextView a celkem devět tlačítek, z nichž každé je interaktivní a slouží pro zadání číslice do vstupu pro ověření přístupu. Tento vstup se postupně vypisuje do TextView, čímž uživatel může postupně kontrolovat zadávající pin. Při každé takovéto interakci kontroluje kód také velikost vstupu uživatelem zadaný. Je-li uživatelem zadána již šestá číslice, dojde k ověření tohoto vstupu vůči databázi firebase.
 
-V případě pozitivního výsledku, přesměruje aplikace uživatele do aktivity MainActivity, která je hlavní aktivitou celého projektu. V této aktivitě jsou uživateli zobrazeny celkem čtyři sekce. Senzorové data, které slouží pro vizualizaci dat jednotlivých senzorů z databáze Firebase, osvětlení, která uživateli nabízí zapínat/vypínat jednotlivé osvětlení nebo měnit jejich intenzitu záření, sekci zabezpečení, která vizualizuje stav detekce požáru a sekci notifikace, která uživateli umužňuje vypínat/zapínat příchozí notifikace do daného mobilního zařízení. Co se týče první a třetí sekce, čili sekce senzorových dat a zabezpečení, umožňuje uživateli pouze čtení z Firebase databáze. Ostatní sekce, dovolují uživateli do databáze také zapisovat, čímž můžeme např. osvětlení zapnout nebo vypnout, popřípadě nastavit danému osvětlení intenzitu jehio záření. Ke změně této intenzity slouží dialogové okno LightIntensityDialog, která čte údaje z "posuvníku" a tyto údaje v realné době do databáze zapisuje. Aktivita MainActivity obsahuje kromě čtyř sekcí také prvek známý jako panel akcí, který se nachází v levé postranní liště aktivity. Tento panel je uživateli skrytý, dokud jej sám nezobrazí. To lze provést přejetím prstu po obrazovce z levého okraje displejem směrem k pravému. 
+V případě pozitivního výsledku, přesměruje aplikace uživatele do aktivity MainActivity, která je hlavní aktivitou celého projektu. V této aktivitě jsou uživateli zobrazeny celkem čtyři sekce. Senzorové data, které slouží pro vizualizaci dat jednotlivých senzorů z databáze Firebase, osvětlení, která uživateli nabízí zapínat/vypínat jednotlivé osvětlení nebo měnit jejich intenzitu záření, sekci zabezpečení, která vizualizuje stav detekce požáru a sekci notifikace, která uživateli umožňuje vypínat/zapínat příchozí notifikace do daného mobilního zařízení. Co se týče první a třetí sekce, čili sekce senzorových dat a zabezpečení, umožňuje uživateli pouze čtení z Firebase databáze. Ostatní sekce, dovolují uživateli do databáze také zapisovat, čímž můžeme např. osvětlení zapnout nebo vypnout, popřípadě nastavit danému osvětlení intenzitu jeho záření. Ke změně této intenzity slouží dialogové okno LightIntensityDialog, která čte údaje z "posuvníku" a tyto údaje v reálné době do databáze zapisuje. Aktivita MainActivity obsahuje kromě čtyř sekcí také prvek známý jako panel akcí, který se nachází v levé postranní liště aktivity. Tento panel je uživateli skrytý, dokud jej sám nezobrazí. To lze provést přejetím prstu po obrazovce z levého okraje displejem směrem k pravému. 
 
-Tento panel obsahuje tři položky. Položku Zařízení, položku O aplikaci a položku Odhlášení. Položka Zařízení přesměruje uživatele do aktivity DevicesActivity a slouží především jako informativní aktivita vyobrazující ID zařízení s IP adresou Arduina a ID zařízení s IP adresami Raspberry Pi serveru. Další položka v panelu je položka O opalikaci, která zobrazuje dialogové oknou AboutAppDialog. Tento dialog složí pro zobrazení informací a aplikaci, především její verzi a kontaktní údaje o vývojáři. Poslední položkou je položka Odhlášení, která uživatele přesměruje zpět do aktivity LoginActivity. Tato položka slouží především k zabezpečení aplikace před neautorizovanou osobou, která by se mohla dost již k odemknuté aplikaci.
+Tento panel obsahuje tři položky. Položku Zařízení, položku O aplikaci a položku Odhlášení. Položka Zařízení přesměruje uživatele do aktivity DevicesActivity a slouží především jako informativní aktivita vyobrazující ID zařízení s IP adresou Arduina a ID zařízení s IP adresami Raspberry Pi serveru. Další položka v panelu je položka O aplikaci, která zobrazuje dialogové okno AboutAppDialog. Tento dialog složí pro zobrazení informací a aplikaci, především její verzi a kontaktní údaje o vývojáři. Poslední položkou je položka Odhlášení, která uživatele přesměruje zpět do aktivity LoginActivity. Tato položka slouží především k zabezpečení aplikace před neautorizovanou osobou, která by se mohla dost již k odemknuté aplikaci.
+
 
 
 - [1] https://cs.wikipedia.org/wiki/Arduino
