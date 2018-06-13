@@ -21,16 +21,15 @@ Arduino [čti Arduíno] je v informatice název malého jednodeskového počíta
 
 Arduino IDE je open-source software umožňující snadné psaní kódu a jeho nahrávání na desku. Spouští se na systémech Windows, Mac OS X a Linux a jeho prostředí je napsáno v jazyce Java. Tento software lze použít s libovolnou deskou Arduino.
 
-1. **Stažení a instalace softwaru Arduino IDE** - Software Arduino IDE je dostupný na oficiálních stráchkách společnosti Arduino [Download](https://www.arduino.cc/en/main/software). 
+1. **Stažení a instalace softwaru Arduino IDE** - Software Arduino IDE je dostupný na oficiálních stránkách společnosti Arduino [Download](https://www.arduino.cc/en/main/software). 
 
 2. **Instalace WiFi čipu ESP8266** - Samotný software Arduino IDE neobsahuje podporu desek s WiFi čipy ESP8266, proto je nutné tuto podporu doinstalovat. Využijeme návodu vytvořeného společností Arduino-shop [Návod](http://navody.arduino-shop.cz/navody-k-produktum/esp8266-vyvojova-deska-wemos-d1.html). 
 *Pozn.: Vývojovou desku nevolte dle návodu WeMos D1 (retired), ale zvolte WeMos D1 R2 & mini*.
 
-3. **Připojení desky WeMos D1 mini** - Desku WeMos D1 mini připojte MicroUSB kabelem k PC. V sotwaru Arduino IDE přejděte do Nástroje -> Port a zvolte port, ke kterému jste vaší desku připojili.
+3. **Připojení desky WeMos D1 mini** - Desku WeMos D1 mini připojte MicroUSB kabelem k PC. V sotwaru Arduino IDE přejděte do Nástroje -> Port a zvolte port, ke kterému jste vaši desku připojili.
 
 4. **Instalace knihoven** - Návod, jak knihovny do prostředí Arduino IDE implementovat nalezneme opět na stránkách společnosti Arduino-shop [Návod](http://navody.arduino-shop.cz/zaciname-s-arduinem/arduino-knihovny.html). 
-
-Pořebné knihovny: **BME280** [Download](https://github.com/adafruit/Adafruit_BME280_Library), **ArduinoJson** [Download](https://github.com/bblanchon/ArduinoJson)
+Potřebné knihovny: **BME280** [Download](https://github.com/adafruit/Adafruit_BME280_Library), **ArduinoJson** [Download](https://github.com/bblanchon/ArduinoJson)
 
 ### Zapojení
 
@@ -38,7 +37,7 @@ Pořebné knihovny: **BME280** [Download](https://github.com/adafruit/Adafruit_B
 
 Schéma zapojení bylo vytvořeno v open-source software Fritzing. Tento software můžeme stáhnout ze stránek [http://fritzing.org/download/](http://fritzing.org/download/) 
 
-Veškeré externí komponenty, které nejsou součástí knihovny programu Fritzing, nakeznete [zde](TODO)
+Veškeré externí součástky, které nejsou součástí knihovny programu Fritzing, naleznete [zde](TODO)
 
 #### PinOut
 
@@ -51,13 +50,13 @@ Veškeré externí komponenty, které nejsou součástí knihovny programu Fritz
 
 Kód projektu Arduina naleznete zde: [Arduino.ino](TODO) 
 
-Základní struktura kódu se zakládá na dvou hlavních funkcí, bez nichž by program nefungoval. Z funkce Setup a funkce Loop, které se spouští automaticky po importování knihoven a globalních proměnných. Funkce Setup se spouští po každém zapnutí nebo resetování desky Arduino pouze jednou a slouží k inicializaci proměnných, definování režimů pinů, inicializaci knihoven apod. Funkce Loop, jak už její název napovídá bude prováděna automaticky, což umožňuje arduinu reágovat na změny a provádět požadované úkony.
+Základní struktura kódu se zakládá na dvou hlavních funkcích, bez nichž by program nemohl fungovat. Z funkce Setup a funkce Loop, které se spouštějí automaticky po zapnutí desky Arduino. Funkce Setup se spouští po každém zapnutí nebo resetování pouze jednou a slouží k inicializaci proměnných, definování režimů pinů, inicializaci knihoven, načtení vstupních dat apod. Funkce Loop, jak už její název napovídá bude automaticky cyklovat, což umožňuje Arduinu reagovat na změny, měnit stav hodnot, funkcí, pinů atd.
 
-Pokud bychom si měli popsat funkčnost samotného programu, funkčnost bude následující. Po spuštění kódu program prvně načte veškeré poptřebné knihovny, definuje čísla pinů jednotlivých připojených senzorů, ale především definuje heslo a SSID WiFi sítě, ke které se bude zařízení připojovat. Tyto údaje jsou důležité pro inicializaci WiFi spojení s AP naší sítě a získání IP adresy DHCP serverem. Tato inicializace se spouší ve funkci Setup voláním WiFi.begin s předáním parametrů SSID sítě a hesla. Proces ásledně skočí do smyčky while, kde se každých 500ms kontroluje status připojení, dokud status není "připojen". 
+Samotný program na svém začátku obsahuje připojení veškerých potřebných knihoven, definici pinů jednotlivých připojených senzorů, popřípadě jejich adresy pro IIC komunikaci, ale především definuje heslo a SSID Wi-Fi sítě, ke které se bude zařízení připojovat. Tyto údaje jsou důležité pro inicializaci Wi-Fi spojení s naší síti a získání IP adresy. Tato inicializace je spouštěna ve funkci Setup voláním metody WiFi.begin. Proces následně spadne do smyčky while, ve které každých 500ms kontroluje status připojení, dokud není status připojení roven *WL_CONNECTED*. V takovém to případě pokračuje program dále, inicializuje přenos paketů pomocí protokolu UDP a zavolá funkci sendBroadcastMessage. Tato funkce slouží k vytvoření broadcastu z přidělené lokální adresy, na který je následně odeslán UDP packet se zprávou "Hello server", kterou se snaží ve své síti najít server, kterému může zasílat veškerá svá data.
 
-Po přidělení adresy se inicializuje přenost paketů pomocí protokolu UDP, změní se stav proměnné *connected* z false na true a zavolá se funkce sendBroadcastMessage. Tato funkce slouží k vytvoření broadcastu z přidělené lokální adresy, na který je následně odeslán UDP packet se zprávou "Hello server", kterou se snaží ve své síti najít server, kterému může zasílat veškerá svá data.
+Ve chvíli, kdy server na zprávu odpověděl, zasílá svou IP adresu, na kterou je opětovně zaslaná zpráva s registračními údaji a informacemi o našem zařízení v podobě JSON objektu.
 
-Ve chvíli, kdy je změněný status true, může začít probíhat samotná smyčka. Ta v cyklu v prvé řadě kontroluje příchozí paket na svém otevřeném portu 2807, který jsme definovali v globalních proměnných a následně vykoná zbytek svého kódu v cyklu. V tomto zbytku kódu docházi ke čtení dat z připojených senzů a kontrole změny stavu mikrospínčů s nasledným odesíláním těchto získánych výsledků serveru. Nicméně, tento zbytek kódu se neprovede do chvíle, dokud nedostaneme UDP packet od hledaného serveru, který jsme zprávou "Hello server" žádali o zaslání jeho adresy. Ve chvíli, kdy nám server odpověděl, získá se jeho adresa, na kterou je opětovně zaslaná zpráva s registračními údaji a informacemi o našem zařízení v podobě JSON objektu. Ve chvíli, kdy známe adresu našeho serveru a zařízení mám u serveru registrováno, můžeme začít zasílat jednotlivé údaje ze senzorů. Ty se odesílají každých 5000 ms v podobě JSON objektu, nebo ve chvíli, kdy dojde k detekování požáru, či detekování stisku mikrospínače. Tyto objekty již zpracovává samotný server, který si popíšeme v další části tutoriálu.
+V této chvíli může začít probíhat samotná smyčka. Ta v cyklu v prvé řadě kontroluje příchozí pakety na svém otevřeném portu 2807, který jsme definovali na začátku kódu a následně v druhé řadě dojde ke čtení dat z připojených senzorů. Tyto data jsou odesílány každých 5000 ms v podobě JSON objektu, nebo ve chvíli, kdy dojde k detekování požáru, či detekování stisku mikrospínače. Tyto objekty již zpracovává samotný server, který si popíšeme v další části tutoriálu.
 
 # Firebase
 
