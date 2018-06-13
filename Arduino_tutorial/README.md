@@ -204,8 +204,10 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 # Webový server
 
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+Pojmem webový server se rozumí počítač, který je odpovědný za vyřizování požadavků HTTP od klientů (nejčastěji webových prohlížečů). Vyřízením požadavků se rozumí odeslání cíle specifikovaného URL (typicky webová stránka, ale též statický text, obrázek či jiný soubor). Webové stránky jsou obvykle dokumenty v jazyku HTML. V druhém případě se webovým serverem rozumí  počítačový program, který provádí činnosti popsané v předchozím bodě (démon). [https://cs.wikipedia.org/wiki/Webov%C3%BD_server] 
 
+Pro potřeby našeho projektu jsme použili nejpoužívanějším webový server vůbec, Apache HTTP Server.
+    
 ![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
 
 ### Instalace
