@@ -207,8 +207,6 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 Pojmem webový server se rozumí počítač, který je odpovědný za vyřizování požadavků HTTP od klientů (nejčastěji webových prohlížečů). Vyřízením požadavků se rozumí odeslání cíle specifikovaného URL (typicky webová stránka, ale též statický text, obrázek či jiný soubor). Webové stránky jsou obvykle dokumenty v jazyku HTML. V druhém případě se webovým serverem rozumí  počítačový program, který provádí činnosti popsané v předchozím bodě (démon). [https://cs.wikipedia.org/wiki/Webov%C3%BD_server] 
 
 Pro potřeby našeho projektu jsme použili nejpoužívanějším webový server vůbec, Apache HTTP Server.
-    
-![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
 
 ### Instalace
 
@@ -221,7 +219,7 @@ Tento webový server očekává svá data v adresáři /var/www/html. Do tohoto 
 
 Jakmile jsou veškerá data zkopírování v adresáři /var/www/html, nastavíme přístupová práva všech souborů a adresářů v dané cestě příkazem `sudo chmod 777 -R /var/www/html`
 
-Web, který pro naše účely používáme, využívá skriptu v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat a následně webový server restartujeme.
+Web, který pro naše účely používáme, využívá skripty v jazyce php. Proto je potřeba doinstalovat jednotlivé balíčky a závislosti, které s php skripty umí pracovat. Následně webový server restartujeme.
 
     ``` 
 	sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-cli php7.0-common php7.0-mbstring php7.0-gd php7.0-intl php7.0-xml php7.0-mysql php7.0-mcrypt php7.0-zip
@@ -230,11 +228,20 @@ Web, který pro naše účely používáme, využívá skriptu v jazyce php. Pro
     
 ### Kód
  
-c
+![Dashboard Screen](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/Dashboard_screen.png)
 
-Původní Dashboard, který byl upraven naším požadavkům byl stažen ze stránek GitHubu [https://github.com/puikinsh/sufee-admin-dashboard](https://github.com/puikinsh/sufee-admin-dashboard) 
+Změny v kódu.
 
+Původní Dashboard, který byl upraven naším požadavkům byl stažen ze stránek GitHubu [https://github.com/puikinsh/sufee-admin-dashboard](https://github.com/puikinsh/sufee-admin-dashboard). Veškeré velké změny provedeny oproti původního projektu naleznete v popisu níže.
 
+Index.html ... Index.html je hlavní soubor webových stránek, který webový server zpracovává jako první v pořadí. Krom celkové úpravy tohoto souboru a přizpůsobení dashboardu naším potřebám je nejdůležitější implementace Firebase do našeho projektu. Firebase implementujeme následovně: Přejděte do konzole prostředí Firebase. Ve vašem projektu zvolte *ADD ANOTHER APP* a zvolte *Add Firebase to your web app*. Zkopírujte skript a vložte jej ke konci souboru.
+
+V Index.html kódu si můžeme všimnout také implementaci vlastního JavaScriptu Firebase.js (<script src="assets/js/firebase.js"></script>), kde assets/js/ označuje cestu v hierarchiji adresářů, kde soubor můžeme nalézt. Tento skript se stará o vytěžování dat z databáze Firebase a také o ovládání prvků pro zapínání/vypínání světel, či úpravy jejich intenzity. K tomu slouží implementovány přepínače (switch) a posuvníky (RangeBar). Vzhled těchto prvků je definovaný v nově vytvořeném souboru kaskádových stylů, myStyle.css. (
+<link rel="stylesheet" href="assets/css/myStyle.css">). 
+
+Kromě výše uvedených skriptů implementovaných do souboru Index.html, jsou do tohoto souboru implementovany také skripty chart_temperature_humidity_dashboard.js a chart_pressure_dashboard.js. Zde je potřeba dbát na implementaci těchto skriptů až pod skript Chart.bundle.js, který slouží k inicializaci JavaScriptu Chart.js. Bez něj nám nebudou námi vytvořené skripty fungovat. Jak už tedy text napovídá, skripty slouží k zobrazení grafů na hlavní nástěnce. Oba tyto skripty využívají asynchronního načítání dynamického obsahu (AJAX), čímž odpadá nutnost aktualizovat vždy celou webovou stránku. Tím jsme byli schopni vytvořit Real-Time grafy, které každou sekundu načítají obsah interní databáze MariDb a data zpracovávají. O vytěřování těchto dat se starají php skripty BME280_Data.php a FlameDetection_Data.php, které po přihlášení do interní databáze vyselektují požadovaná data a vrátí je v objektu JSON.
+
+Zbytek úprav provedeny v ostatních souborech využívají obdobné postupy výše uvedené, proto je zde nebudu více popisovat.    
 
 # Mobilní aplikace pro platformu Android
 
