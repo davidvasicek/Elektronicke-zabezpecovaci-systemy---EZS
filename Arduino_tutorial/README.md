@@ -72,7 +72,7 @@ Pomocí služby FCM můžete upozornit aplikaci klienta, že jsou k dispozici no
 Ukládejte a synchronizujte data s NoSQL cloud databází. Data jsou synchronizována ve všech klientech v reálném čase a zůstávají k dispozici, když aplikace zmizí.
 Firebase Realtime Database je databáze hostovaná v cloudu. Data jsou uložena jako JSON a synchronizována v reálném čase s každým připojeným klientem. Při vytváření aplikací s více platformami iOS, Android a JavaScript SDK sdílí všichni klienti jednu instanci Realtime databáze a automaticky přijímá aktualizace s nejnovějšími daty. [[5]](https://firebase.google.com/products/realtime-database/), [[6]](https://firebase.google.com/docs/database/)
 
-### Založení projektu Firebase
+#### Založení projektu Firebase
 
 1. **Registrace Google účtu** - Abychom mohli plně využívat služeb Firebase, potřebujeme mít platný účet u společnosti Google, Inc. Pokud tento účet nemáme, budeme ho muset v prvé řadě vytvořit. [Registrace](https://accounts.google.com/SignUp?continue=https%3A%2F%2Fwww.google.cz%2F%3Fgfe_rd%3Dcr%26ei%3DUXnfWML0IfGv8wfVooPIAg&hl=cs)
 
