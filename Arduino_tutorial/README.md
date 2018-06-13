@@ -218,7 +218,7 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	journalctl --follow -u server
 	```
 
-3. Úprava souboru `sudo nano /etc/rc.local` a přidáním na předposlední řádek (těsně před exit 0) následující řádek
+3. Úprava souboru `sudo nano /etc/rc.local` a přidáním na předposlední řádek (těsně před exit 0) následující příkaz
 
 	``` 
 	sudo systemctl start server
