@@ -189,9 +189,40 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	``` 
 	
 	
-#### Spuštění skriptu serveru na pozadí jako Daemon
+#### Spuštění skriptu na pozadí jako Daemon
 
-TODO
+1. vytvoření nového souboru `sudo nano /etc/systemd/system/server.service` a vložení následujícího kódu
+	
+	``` 
+	[Unit]
+	Description=Node.js Hello World Http Server
+
+	[Service]
+	ExecStart=/home/pi/IoT/server.js
+	Restart=always
+	User=root
+	Group=root
+	Environment=PATH=/usr/bin:/usr/local/bin
+	Environment=NODE_ENV=production
+	WorkingDirectory=/home/pi/IoT
+
+	[Install]
+	WantedBy=multi-user.target
+	```
+	
+2. Spuštění příkazů:
+
+	``` 
+	systemctl daemon-reload
+	systemctl start server
+	journalctl --follow -u server
+	```
+
+3. Úprava souboru `sudo nano /etc/rc.local` a přidáním na předposlední řádek (těsně před exit 0) následující řádek
+
+	``` 
+	sudo systemctl start server
+	```
 
 	
 #### Kód
