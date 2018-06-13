@@ -6,7 +6,7 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 Arduino [čti Arduíno] je v informatice název malého jednodeskového počítače založeného na mikrokontrolerech ATmega od firmy Atmel. Svým návrhem se snaží podpořit výuku informatiky ve školách a seznámit studenty s tím, jak jsou pomocí počítačů řízena různá zařízení (např. mikrovlnná trouba, automatická pračka a jiné stroje). Nejedná se tedy o počítač ve smyslu stolního počítače nebo chytrého telefonu. Nelze proto k němu snadno přímo připojit monitor ani klávesnici či myš, ale je připraven na připojení LED diod, displeje z tekutých krystalů, servomotorů, senzorů, osvětlení atd. Více na .. [[1]](https://cs.wikipedia.org/wiki/Arduino) 
 
-### Hardware
+#### Hardware
 
 - **WeMos D1 Mini** - Wemos D1 Mini je Wifi vývojová breadbord kompatibilní deska, založená na ESP8266 [e-shop](https://arduino-shop.cz/arduino/1679-externi-konektor-anteny-wemos-d1-mini-pro-16mb-1501219041.html?gclid=EAIaIQobChMInLuQ9d_A2QIVhOcbCh35RwMeEAQYASABEgJ-zvD_BwE)
 - **Senzor Plamene Infračervený Detekční Modul** - Modul detekuje plamen nebo podobné světlo o vlnové délce 760nm. [e-shop](https://arduino-shop.cz/arduino/1520-senzor-plamene-infracerveny-detekcni-modul-1486113741.html) | [návod](http://navody.arduino-shop.cz/navody-k-produktum/infracerveny-senzor-plamene.html)
@@ -17,7 +17,7 @@ Arduino [čti Arduíno] je v informatice název malého jednodeskového počíta
 - **Rezistor 220 ohm (3x)** - [e-shop](https://www.gme.cz/rm-220r-0309-1w-1)
 - **Mikrospínač (3x)** - [e-shop](https://www.gme.cz/tc-0102-t-a00) 
 
-### Software
+#### Software
 
 Arduino IDE je open-source software umožňující snadné psaní kódu a jeho nahrávání na desku. Spouští se na systémech Windows, Mac OS X a Linux a jeho prostředí je napsáno v jazyce Java. Tento software lze použít s libovolnou deskou Arduino.
 
@@ -31,7 +31,7 @@ Arduino IDE je open-source software umožňující snadné psaní kódu a jeho n
 4. **Instalace knihoven** - Návod, jak knihovny do prostředí Arduino IDE implementovat nalezneme opět na stránkách společnosti Arduino-shop [Návod](http://navody.arduino-shop.cz/zaciname-s-arduinem/arduino-knihovny.html). 
 Potřebné knihovny: **BME280** [Download](https://github.com/adafruit/Adafruit_BME280_Library), **ArduinoJson** [Download](https://github.com/bblanchon/ArduinoJson)
 
-### Zapojení
+#### Zapojení
 
 ![zapojeni](https://github.com/davidvasicek/Elektronicke-zabezpecovaci-systemy---EZS/blob/master/img/Zapojeni1.png)
 
@@ -46,7 +46,7 @@ Veškeré externí součástky, které nejsou součástí knihovny programu Frit
 - **SPI**: D5 = SCK, D6 = MISO, D7 = MOSI, D8 = SS; 
 - **I2C**: D1 = SCL, D2 = SDA
 
-### Kód
+#### Kód
 
 Kód projektu Arduina naleznete zde: [Arduino.ino](TODO) 
 
@@ -86,25 +86,25 @@ Raspberry Pi (výslovnost [ˈraːzbəri pai]) je v informatice název malého je
 
 **Raspbian** (výslovnost [raːzbiən]) je operační systém odvozený od Debianu pro Raspberry Pi i osobní počítače. Je oficiálně poskytován nadací Raspberry Pi Foundation jako primární operační systém pro jednoplášťové počítače z rodiny Raspberry Pi. Raspbian byl vytvořen Mikem Thompsonem a Peterem Greenem jako nezávislý projekt a první sestavení byla dokončena v červnu 2012.  Raspbian je vysoce optimalizovaný pro ARM procesory používané v Raspberry Pi. [[8]](https://cs.wikipedia.org/wiki/Raspbian)
 
-1. **Stažení operačního systému.** Raspbian je součásti instalačního balíčku zvaného NOOBS, který nalezneme na oficiálních stránkách organizace RaspberryPi [Download zde](https://www.raspberrypi.org/downloads/noobs/). Stáhneme NOOBS ve formátu .zip kliknutím na tlačítko *Download ZIP*.
+1. **Stažení operačního systému** - Raspbian je součásti instalačního balíčku zvaného NOOBS, který nalezneme na oficiálních stránkách organizace RaspberryPi [Download](https://www.raspberrypi.org/downloads/noobs/). Stáhneme NOOBS ve formátu *.zip* kliknutím na tlačítko *Download ZIP*.
 
-2. **Příprava Micro SD karty.** Pokud naše karta obsahuje zastaralá data, bude nutné kartu v prvé řadě naformátovat. To provedeme programem zvaným SD Memory Card Formatter [Download zde](https://www.sdcard.org/downloads/formatter_4/).
+2. **Příprava Micro SD karty** - Pokud naše karta obsahuje zastaralá data, bude nutné kartu v prvé řadě naformátovat. To provedeme programem zvaným SD Memory Card Formatter [Download](https://www.sdcard.org/downloads/formatter_4/).
 
-3. **Kopírování souborů na Micro SD kartu.** Jestliže máme balíček NOOBS stažený a paměťovou kartu naformátovanou, překopírujeme veškeré soubory ze ZIP archívu balíčku NOOBS na paměťovou kartu.
+3. **Kopírování souborů na Micro SD kartu** - Jestliže máme balíček NOOBS stažený a paměťovou kartu naformátovanou, překopírujeme veškeré soubory ze ZIP archívu balíčku NOOBS na paměťovou kartu.
 
-4. **Instalace OS.** Paměťovou kartu vložíme do našeho zařízení Raspberry Pi a připojíme monitor a napájení. Po nabootování paměťové karty se zobrazí nabídka, ve které zaškrtávacím políčkem zvolíme *Raspbian with PIXEL* a stiskem tlačítka *Install* system Raspbian nainstalujeme.
+4. **Instalace OS** - Paměťovou kartu vsuneme do našeho zařízení Raspberry Pi a připojíme monitor a napájení. Po nabootování paměťové karty se zobrazí nabídka, ve které zaškrtávacím políčkem zvolíme *Raspbian with PIXEL* a stiskem tlačítka *Install* system Raspbian nainstalujeme.
 
-### Prvotní spuštění systému
+#### Prvotní spuštění systému
 
-1. **Připojení k internetu.** 
+1. **Připojení k internetu:** 
 
-    - **Kabelové připojení (ETH0):** V případě kabelového ethernetového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
-    - **Bezdrátové připojení (WLAN0):** Pokud budeme využívat WiFi připojení, nalezneme v grafickém prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
-    - **Získáni IP adresy:** Spusťte příkazový řádek a zadejte příkaz `ifconfig`. IP adresu najdeme pod označením *inet*. V případě kabelového připojení v *ETH0*, v případě bezdrátového připojení *WLAN0*.
-2. **Povolení protokolu SSH (Secure Shell).** v prostředí OS Raspbianu klikneme v levém horním rohu na ikonu maliny -> Preferences -> Raspberry Pi Configuration -> Interfaces -> SSH: Enable -> OK [Návod zde](https://www.raspberrypi.org/documentation/remote-access/ssh/).
+    - **Kabelové připojení (ETH0)** - V případě kabelového připojení pouze připojíme datový kabel do zařízení Raspberry Pi. 
+    - **Bezdrátové připojení (WLAN0)** - Pokud budeme využívat WiFi připojení, nalezneme v grafickém prostředí OS Raspbianu v pravé horní části obrazovky ikonku WiFi, na kterou klikneme, vybereme SSID sítě, ke které se budeme připojovat a vložíme heslo. 
+    - **Získáni IP adresy** - Spusťte příkazový řádek a zadejte příkaz `ifconfig`. IP adresu najdeme pod označením *inet*. V případě kabelového připojení v *ETH0*, v případě bezdrátového připojení *WLAN0*.
+2. **Povolení protokolu SSH (Secure Shell)** - V prostředí OS Raspbianu klikneme v levém horním rohu na ikonu maliny -> Preferences -> Raspberry Pi Configuration -> Interfaces -> SSH: Enable -> OK [Návod](https://www.raspberrypi.org/documentation/remote-access/ssh/).
 3. **Update a Upgrade systému.** Spusťte příkazový řádek a zadejte příkaz `sudo apt-get -y upgrade`, po dokončení zadejte příkaz `sudo apt-get -y update`
 
-### Instalace repozitářů
+#### Instalace repozitářů
 
 Přejděte do příkazovéhé řádky a přihlaste se jako správce root příkazem `sudo -i`. Pokud nebudete jako správce přihlášeni, budou vám chybět oprávnění k následujícím úkonům.
 
@@ -117,7 +117,7 @@ Přejděte do příkazovéhé řádky a přihlaste se jako správce root příka
     /etc/init.d/vsftpd restart
     ```
 
-2. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [4]. Npm je správce balíčků pro programovací jazyk JavaScript. [5]
+2. **Instalace Node JS a npm.** Node.js je softwarový systém navržený pro psaní vysoce škálovatelných internetových aplikací, především webových serverů. Programy pro Node.js jsou psané v jazyce JavaScript, hojně využívající model událostí a asynchronní I/O operace pro minimalizaci režie procesoru a maximalizaci výkonu [[9]](https://cs.wikipedia.org/wiki/Node.js). Npm je správce balíčků pro programovací jazyk JavaScript. [[10]](https://en.wikipedia.org/wiki/Npm_(software))
     
     ``` 
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -138,9 +138,9 @@ Přejděte do příkazovéhé řádky a přihlaste se jako správce root příka
     node server.js
 	``` 
 
-### Vytvoření interní databáze MariaSQL
+#### Vytvoření interní databáze MariaDB
 
-MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou větví (tzv, „forkem“) MySQL. Hlavním důvodem k vytvoření této větve bylo udržení licence svobodného softwaru GNU GPL. [odkaz10] V našem případě nám bude sloužit pro dlouhodobé ukládání dat jednotlivých senzorů. Tyto data budou sloužit pro analýzu, statistiku a vizualizaci na serveru. 
+MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou větví (tzv, „forkem“) MySQL. Hlavním důvodem k vytvoření této větve bylo udržení licence svobodného softwaru GNU GPL [[11]](https://cs.wikipedia.org/wiki/MariaDB). V našem případě nám bude sloužit pro dlouhodobé ukládání dat jednotlivých senzorů. Tyto data budou sloužit pro analýzu, statistiku a vizualizaci na serveru. 
 
 1. **Instalace MariDB.** 
 
@@ -164,7 +164,7 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	   USE IoT; // přepnutí se do databáze IoT, ve které budeme vytvářet nové tabulky
 	```
 
-4. **Vytvoření tabulek** Budou vytvořeny celk 2 tabulky, každá pro jeden ze senzorů zasílající svá data serveru. Tbulka BME280 uchovávající data o teplotě, vlhkosti a barometrického tlaku, tabulka FlameDetection uchovávající informace o detekovaném požáru.
+4. **Vytvoření tabulek** - Budou vytvořeny celkem 2 tabulky, každá pro jeden ze senzorů zasílající svá data serveru. Tbulka BME280 uchovávající data o teplotě, vlhkosti a barometrického tlaku a tabulka FlameDetection uchovávající informace o detekovaném požáru.
 	
 	
 	``` 	
@@ -185,7 +185,7 @@ MariDB je relační databáze, která je komunitou vyvíjenou nástupnickou vět
 	);
 	``` 
 	
-### Kód
+#### Kód
 
 Kód projektu pro raspberry server stáhneme z následujícího odkazu. [Server.js](TODO)	
 
